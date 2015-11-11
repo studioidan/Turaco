@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/L15"
+        android:layout_marginTop="@dimen/Margin_XL"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_state_panal_state"
+            android:layout_alignRight="@+id/ll_state_panal_state"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/S2">
+
+            <ImageView
+                android:id="@+id/imgDisarm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_disarm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/M10"
+                android:text="Disarm"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP11" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_state_panal_state"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/S2">
+
+            <ImageView
+                android:id="@+id/imgArmStay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_arm_stay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/M10"
+                android:text="Arm Stay"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP11" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_state_panal_state"
+            android:layout_alignLeft="@+id/ll_state_panal_state"
+            android:layout_below="@+id/btn_select_camera_panel_state"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/S2">
+
+
+            <ImageView
+                android:id="@+id/imgArm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_arm"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/M10"
+                android:text="Arm"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP11" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/indicatorHolder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Margin_S"
+        android:layout_below="@+id/buttons"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/indicator"
+            android:layout_width="@dimen/indicator_width"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/indicatorBall"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/white_ball"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_state_panal_state"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/XL4"
+        android:layout_below="@+id/indicatorHolder"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/disarm_view"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvPanelState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/S5"
+            android:gravity="center"
+            android:lines="2"
+            android:text="SYSTEM DISARMED"
+            android:textColor="#FFFEFE"
+            android:textSize="@dimen/SP14"
+            android:textStyle="bold"
+            android:typeface="sans" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

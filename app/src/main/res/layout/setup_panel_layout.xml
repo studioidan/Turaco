@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/M10"
+        android:text="Setup"
+        android:textColor="#1E3C7D"
+        android:textSize="@dimen/SP16"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/S3"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btnSetPanel"
+                android:layout_width="@dimen/L10"
+                android:layout_height="@dimen/L10"
+                android:layout_alignBottom="@+id/imbtn_camera_edit_setuplayout"
+                android:layout_alignTop="@+id/imbtn_camera_edit_setuplayout"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_system_setup" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/btnSetPanel"
+                android:gravity="center"
+                android:text="@string/panelname"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP11"
+                android:textStyle="normal"
+                android:typeface="sans" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/S3"
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imbtn_camera_edit_setuplayout"
+                android:layout_width="@dimen/L10"
+                android:layout_height="@dimen/L10"
+                android:layout_toRightOf="@id/btnSetPanel"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_camera_setup" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imbtn_camera_edit_setuplayout"
+                android:layout_alignLeft="@+id/imbtn_camera_edit_setuplayout"
+                android:layout_alignRight="@+id/imbtn_camera_edit_setuplayout"
+                android:gravity="center"
+                android:text="@string/camera"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP11"
+                android:textStyle="normal"
+                android:typeface="sans" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.studioidan.turaco.CustomView.AsyncCircularImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dip"
+    android:layout_height="70dip"
+    android:duplicateParentState="true"
+    android:layout_margin="5dip"
+    android:scaleType="fitXY">
+
+</com.studioidan.turaco.CustomView.AsyncCircularImageView>

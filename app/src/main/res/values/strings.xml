@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">TuracoProject</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TuracoClientAPP">Turaco Client APP</string>
+    <string name="user">User:</string>
+    <string name="panal">Panel ID:</string>
+    <string name="changeCamerawithother">Copy Camera __ to camera__</string>
+    <string name="changeCamerawithall">Copy Camera __ to all cameras</string>
+    <string name="camera_changeurl">Save</string>
+    <string name="camera">Camera</string>
+    <string name="panelname">Panel</string>
+    <string name="Camer_name">Camera Name</string>
+    <string name="camera_link_address">Video Link Address</string>
+    <string name="picture_link_address">Picture Link Address</string>
+    <string name="loadicon">Load an Icon</string>
+    <string name="close_disarm"><![CDATA[Close & disarm]]></string>
+    <string name="close_keep"><![CDATA[Close & keep Alarm]]></string>
+    <string name="system_disarm">System Disarmed!</string>
+
+    <string-array name="ips">
+        <item>http://192.168.0.98</item>
+        <item>http://69.64.63.136</item>
+        <item>http://62.90.58.185</item>
+    </string-array>
+</resources>

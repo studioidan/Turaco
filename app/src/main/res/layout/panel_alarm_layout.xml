@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#ddd">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rl_alarm_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f50000"
+
+            >
+
+            <ImageView
+                android:id="@+id/im_alarm_popupt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dip"
+                android:paddingLeft="10dip"
+                android:src="@drawable/ic_alarm_popup" />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/im_alarm_popupt"
+                android:layout_alignTop="@+id/im_alarm_popupt"
+
+                android:layout_toRightOf="@+id/im_alarm_popupt"
+                android:gravity="center_vertical"
+                android:text="Alarm At Site"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+        </RelativeLayout>
+
+        <com.studioidan.turaco.CustomView.CustomVideoView
+            android:id="@+id/cvvAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="280dip"
+            android:padding="15dip" />
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                style="@style/RbButton.Plastic"
+                android:id="@+id/btnAlarmCloseAndDisarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:text="@string/close_disarm" />
+
+            <Button
+                style="@style/RbButton.Plastic"
+                android:id="@+id/btnAlarmClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:text="@string/close_keep" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

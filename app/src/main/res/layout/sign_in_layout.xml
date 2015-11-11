@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#1e3c7d"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ScrollView
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:background="#1e3d7d"
+                android:gravity="center"
+                android:orientation="vertical"
+
+                android:weightSum="1">
+
+                <ImageView
+                    android:id="@+id/imgSignLogo"
+                    android:layout_width="@dimen/XL6"
+                    android:layout_height="@dimen/XL6"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/sign_in_logo_245" />
+
+
+            </LinearLayout>
+
+
+            <!--<ProgressBar-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@android:style/Widget.ProgressBar"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:id="@+id/pr_progress_signin_layout"-->
+            <!--android:visibility="gone"-->
+            <!--/>-->
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_auth_cont_sign_in_layout"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/M1"
+                android:fontFamily="Open Sans Hebrew Regular"
+                android:gravity="center_horizontal"
+                android:text="Welcome To Turaco Systems"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/SP10" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_auth_cont_sign_in_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/S15"
+                android:paddingRight="@dimen/S15">
+
+
+                <EditText
+                    android:id="@+id/ed_user_name_sign_in_layout"
+                    android:layout_width="@dimen/XL13"
+                    android:layout_height="@dimen/M10"
+                    android:layout_above="@+id/ed_user_pass_sign_in_layout"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/S18"
+                    android:background="@drawable/edittext_bg"
+                    android:drawableLeft="@drawable/ic_user_login"
+                    android:ems="10"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/S10"
+                    android:textColor="#A4A4A4"
+                    android:textSize="@dimen/SP9"
+                    android:textStyle="normal"
+                    android:typeface="sans" />
+
+                <EditText
+                    android:id="@+id/ed_user_pass_sign_in_layout"
+                    android:layout_width="@dimen/XL13"
+                    android:layout_height="@dimen/M10"
+                    android:layout_above="@+id/ll_remmeber_container"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_bg"
+                    android:drawableLeft="@drawable/ic_password_login"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/S10"
+                    android:textColor="#A4A4A4"
+                    android:textSize="@dimen/SP9"
+                    android:textStyle="normal"
+                    android:typeface="sans" />
+
+                <LinearLayout
+                    android:id="@+id/ll_remmeber_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/M12"
+                    android:layout_marginTop="@dimen/S10"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/ch_rember_sign_in_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        android:layout_marginRight="@dimen/S5"
+                        android:button="@drawable/checkbox_state" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remember me?"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/SP7"
+                        android:textStyle="bold"
+                        android:typeface="sans" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_sign_in_layout"
+                    android:layout_width="@dimen/XL1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="@dimen/S20"
+                    android:text="Login"
+                    android:textColor="#FFFEFE"
+                    style="@style/RbButton.Inverse.Rounded.Blue"
+                    android:padding="@dimen/S6"
+                    android:textSize="@dimen/SP11"
+                    android:textStyle="bold"
+                    android:typeface="sans" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

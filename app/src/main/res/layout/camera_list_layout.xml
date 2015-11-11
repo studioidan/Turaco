@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.studioidan.turaco.CustomView.CustomVideoView
+        android:id="@+id/videoView1"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/videoViewHeight"
+        android:layout_margin="3dp"></com.studioidan.turaco.CustomView.CustomVideoView>
+
+
+    <ListView
+        android:id="@+id/ls_camera_list_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:visibility="visible"></ListView>
+
+</LinearLayout>

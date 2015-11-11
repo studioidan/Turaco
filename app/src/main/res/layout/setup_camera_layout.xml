@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lbl_camera_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dip"
+        android:text="Camera Actions"
+        android:textColor="#4D4D4D"
+        android:textSize="15sp"
+        android:typeface="sans" />
+
+    <GridView
+        android:id="@+id/gv_cameralist"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/ll_seperator"
+        android:layout_below="@+id/lbl_camera_list"
+        android:numColumns="2"></GridView>
+
+    <LinearLayout
+        android:id="@+id/ll_seperator"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_above="@+id/lbl_camera_action"
+        android:orientation="vertical"
+        android:background="@android:color/darker_gray"></LinearLayout>
+
+    <TextView
+        android:id="@+id/lbl_camera_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_change2camera_setup_camera_layout"
+        android:layout_margin="10dip"
+        android:text="Camera Actions"
+        android:textColor="#4D4D4D"
+        android:textSize="15sp"
+        android:typeface="sans" />
+
+    <RelativeLayout
+        android:id="@+id/ll_change2camera_setup_camera_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imv_caner2acamer"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_marginTop="5dip"
+            android:duplicateParentState="true"
+
+            android:src="@drawable/btn_copy_camera" />
+
+        <TextView
+            android:id="@+id/tv_changecamer2camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imv_caner2acamer"
+            android:layout_alignTop="@+id/imv_caner2acamer"
+            android:layout_marginLeft="5dip"
+            android:layout_toRightOf="@+id/imv_caner2acamer"
+            android:gravity="center_vertical"
+            android:text="@string/changeCamerawithother"
+            android:textColor="#4D4D4D"
+            android:textSize="19sp"
+            android:textStyle="normal"
+            android:typeface="sans" />
+
+        <ImageView
+            android:id="@+id/imv_camera2all"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_alignLeft="@+id/imv_caner2acamer"
+            android:layout_alignRight="@+id/imv_caner2acamer"
+            android:layout_below="@+id/imv_caner2acamer"
+            android:layout_marginTop="5dip"
+            android:duplicateParentState="true"
+            android:src="@drawable/btn_copy_camera" />
+
+        <TextView
+            android:id="@+id/tv_changeCamerAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imv_camera2all"
+            android:layout_alignTop="@+id/imv_camera2all"
+            android:layout_marginLeft="5dip"
+            android:layout_toRightOf="@+id/imv_camera2all"
+            android:gravity="center_vertical"
+            android:text="@string/changeCamerawithall"
+            android:textColor="#4D4D4D"
+            android:textSize="19sp"
+            android:textStyle="normal"
+            android:typeface="sans" />
+    </RelativeLayout>
+
+</RelativeLayout>
