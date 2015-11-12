@@ -6,19 +6,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import com.studioidan.popapplibrary.CPM;
 import com.studioidan.turaco.CustomView.HeaderBar;
 import com.studioidan.turaco.Fragments.BaseFragment;
 import com.studioidan.turaco.Fragments.SignInFragment;
-import com.studioidan.turaco.singeltones.Factory;
+import com.studioidan.turaco.Gcm.GCMClientManager;
+import com.studioidan.turaco.entities.Keys;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity {
+
+    public final String TAG = getClass().getName();
 
     public HeaderBar getmBar() {
         return mBar;
@@ -31,7 +35,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setPushStuff();
         //Handle HeaderBar configuration change
         mBar = (HeaderBar) findViewById(R.id.header_bar_main_activity);
         if (savedInstanceState != null) {
@@ -55,42 +59,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (fragment == null) {
                     addContentFragment(SignInFragment.newInstance(), false);
                 } else {
-
                 }
             }
         }
 
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-//            case R.id.btn_fetch_main_activity:
-//
-//                break;
-        }
     }
 
     public void addContentFragment(BaseFragment mComingFragment, boolean addtobackstack) {
@@ -135,5 +108,30 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             outState.putBoolean("BarShown", false);
         }
         super.onSaveInstanceState(outState);
+    }
+
+    private void setPushStuff() {
+        GCMClientManager pushClientManager = new GCMClientManager(this, getString(R.string.gcm_id));
+        pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
+            @Override
+            public void onSuccess(String registrationId, boolean isNewRegistration) {
+                //Toast.makeText(MainActivity.this, registrationId, Toast.LENGTH_SHORT).show();
+                Log.d(getClass().getName(), "got regId: " + registrationId);
+                CPM.putString(Keys.REG_ID, registrationId, MainActivity.this);
+                // SEND async device registration to your back-end server
+                // linking user with device registration id
+                // POST https://my-back-end.com/devices/register?user_id=123&device_id=abc
+            }
+
+            @Override
+            public void onFailure(String ex) {
+                super.onFailure(ex);
+                Log.e(TAG, ex);
+                // If there is an error registering, don't just keep trying to register.
+                // Require the user to click a button again, or perform
+                // exponential back-off when retrying.
+            }
+        });
+
     }
 }

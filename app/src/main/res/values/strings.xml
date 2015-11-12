@@ -22,6 +22,9 @@
     <string name="close_keep"><![CDATA[Close & keep Alarm]]></string>
     <string name="system_disarm">System Disarmed!</string>
 
+
+    <string name="gcm_id">408308870003</string>
+
     <string-array name="ips">
         <item>http://192.168.0.98</item>
         <item>http://69.64.63.136</item>

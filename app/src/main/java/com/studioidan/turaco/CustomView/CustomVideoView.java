@@ -47,7 +47,7 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
 
     public Uri getUri() {
         return mUri;
-        //minor change
+
     }
 
     public CustomVideoView(Context context) {
@@ -100,7 +100,6 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
         }
         return false;
     }
-
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
