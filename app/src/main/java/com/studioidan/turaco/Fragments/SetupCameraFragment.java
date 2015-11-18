@@ -7,7 +7,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -18,7 +18,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.studioidan.turaco.Adapters.AdapterCamera;
 import com.studioidan.turaco.CustomView.AsyncCircularImageView;
+import com.studioidan.turaco.Fragments.Dialogs.DialogSetCameraSettings;
 import com.studioidan.turaco.Model.Camera;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.connection.APIErrorManager;
@@ -35,7 +37,7 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
     TextView mChange2Cameras, mChangeAllCameras;
     ImageView mImageCamera2camer, mImageCamera2All;
     GridView mGrid;
-    gridAdapter mAdapter;
+    AdapterCamera mAdapter;
 
     public static SetupCameraFragment newInstance() {
         return new SetupCameraFragment();
@@ -57,8 +59,17 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
         mImageCamera2All.setOnClickListener(this);
         mImageCamera2camer.setOnClickListener(this);
 
-        mAdapter = new gridAdapter();
+        mAdapter = new AdapterCamera(ds.getCameras(), getActivity());
         mGrid.setAdapter(mAdapter);
+        mGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //startChagneCameraUrl(position);
+
+                DialogSetCameraSettings dialogSetCameraSettings = DialogSetCameraSettings.getInstance(position);
+                dialogSetCameraSettings.show(getChildFragmentManager(), "TAG");
+            }
+        });
 
         return mView;
     }
@@ -176,45 +187,6 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    private class gridAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return CamerasManager.getSharedManager(getActivity()).getManagers().size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int i, View view, ViewGroup viewGroup) {
-            if (view == null) {
-                view = (View) LayoutInflater.from(getActivity()).inflate(R.layout.camera_item, null);
-                view.setTag(view);
-            } else {
-                view = (View) view.getTag();
-            }
-
-            TextView mText = ((TextView) view.findViewById(R.id.tv_changecamer2camera2));
-            mText.setText("Camera: " + i);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startChagneCameraUrl(i);
-                }
-            });
-            return view;
-        }
-    }
-
     EditText mCameraLink, mCameraName, mPictureLink;
     ImageView mIconImage;
     TextView mIconLbl;
@@ -223,11 +195,11 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
     private void startChagneCameraUrl(final int position) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         final ScrollView mView = (ScrollView) LayoutInflater.from(getActivity()).inflate(R.layout.camer_setup_dilog_layout, null);
-        mCameraName = (EditText) mView.findViewById(R.id.Camera_name_setup_layout);
+        mCameraName = (EditText) mView.findViewById(R.id.etCameraImageUrl);
         mCameraName.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getTitle());
-        mCameraLink = (EditText) mView.findViewById(R.id.camera_link_settup_layout);
+        mCameraLink = (EditText) mView.findViewById(R.id.etCameraImageUrl);
         mCameraLink.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getCameraUrl());
-        mPictureLink = (EditText) mView.findViewById(R.id.picture_link_setup_layout);
+        mPictureLink = (EditText) mView.findViewById(R.id.etCameraImageUrl);
         mIconImage = (ImageView) mView.findViewById(R.id.camer_icon_setup_layout);
         mIconLbl = (TextView) mView.findViewById(R.id.lbl_camera_name);
         if (((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getmIconLogo() != 0) {
@@ -241,8 +213,8 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
         }
 
 
-        Button mButton = (Button) mView.findViewById(R.id.bt_change_urk_setup_layout);
-        Button mBloadICon = (Button) mView.findViewById(R.id.bt_load_icon_setup_layout);
+        Button mButton = (Button) mView.findViewById(R.id.btnLoadIcon);
+        Button mBloadICon = (Button) mView.findViewById(R.id.btnPanelAddressSave);
         mBloadICon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

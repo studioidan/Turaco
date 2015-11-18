@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.studioidan.turaco.Fragments.Dialogs.DialogSetPanelAddress;
 import com.studioidan.turaco.R;
 
 /**

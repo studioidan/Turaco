@@ -21,7 +21,7 @@
             android:typeface="sans" />
 
         <EditText
-            android:id="@+id/Camera_name_setup_layout"
+            android:id="@+id/etCameraName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
@@ -42,7 +42,7 @@
             android:typeface="sans" />
 
         <EditText
-            android:id="@+id/camera_link_settup_layout"
+            android:id="@+id/etCameraVideoUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
@@ -91,7 +91,7 @@
                 android:visibility="invisible" />
 
             <EditText
-                android:id="@+id/picture_link_setup_layout"
+                android:id="@+id/etCameraImageUrl"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
@@ -109,7 +109,7 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/bt_load_icon_setup_layout"
+                android:id="@+id/btnLoadIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -120,7 +120,7 @@
                 android:typeface="sans" />
 
             <Button
-                android:id="@+id/bt_change_urk_setup_layout"
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,4 +1,4 @@
-package com.studioidan.turaco.Fragments;
+package com.studioidan.turaco.Fragments.Dialogs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

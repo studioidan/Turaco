@@ -22,6 +22,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
 import com.studioidan.popapplibrary.CPM;
 import com.studioidan.popapplibrary.HttpAgent;
+import com.studioidan.turaco.Fragments.Dialogs.DialogSetPanelAddress;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.alarm.AlarmService;
 import com.studioidan.turaco.entities.Keys;
