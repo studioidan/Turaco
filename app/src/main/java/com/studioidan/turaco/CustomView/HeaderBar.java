@@ -88,10 +88,14 @@ public class HeaderBar extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        // Fragment fragment = ((MainActivity) getContext()).getCurrentFragment();
+        // boolean addToBack = true;
+
         switch (view.getId()) {
             case R.id.imbtn_camera_main_layout:
                 ((MainActivity) getContext()).addContentFragment(CameraListFragment.newInstance(), true);
                 break;
+
             case R.id.imbtn_changeurl_main_layout:
                 ((MainActivity) getContext()).addContentFragment(SetupPanelCameraFragment.newInstance(), true);
                 break;

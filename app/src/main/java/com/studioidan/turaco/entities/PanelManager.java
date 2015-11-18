@@ -48,7 +48,6 @@ public class PanelManager {
         }).execute("get");
     }
 
-
     public static void makePanelCommand(final Context con, final String command, final Factory.GenericCallback callback) {
         //http://69.64.63.136:8080/api/panelCommand/8?command=arm&parameter=a&ttl=0&user=e
         //http://69.64.63.136:8080/api/panelCommand/8?command=disarm&parameter=a&ttl=0&user=e
@@ -79,6 +78,5 @@ public class PanelManager {
             }
         }).execute("get");
     }
-
 
 }

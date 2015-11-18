@@ -18,7 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.studioidan.popapplibrary.HttpAgent;
 import com.studioidan.turaco.CustomView.AsyncCircularImageView;
 import com.studioidan.turaco.Model.Camera;
 import com.studioidan.turaco.R;
@@ -36,15 +35,10 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
     TextView mChange2Cameras, mChangeAllCameras;
     ImageView mImageCamera2camer, mImageCamera2All;
     GridView mGrid;
-    gridAdapter mAdaoter;
+    gridAdapter mAdapter;
 
     public static SetupCameraFragment newInstance() {
         return new SetupCameraFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -63,15 +57,9 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
         mImageCamera2All.setOnClickListener(this);
         mImageCamera2camer.setOnClickListener(this);
 
-        mAdaoter = new gridAdapter();
-        mGrid.setAdapter(mAdaoter);
-//        mGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                Toast.makeText(getActivity(),((Camera)((List)CamerasManager.getSharedManager(getActivity()).getManagers()).get(i)).getCameraUrl(),Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
+        mAdapter = new gridAdapter();
+        mGrid.setAdapter(mAdapter);
+
         return mView;
     }
 
@@ -110,7 +98,7 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
                             mText.setError("ID does not exist");
                         } else {
                             CamerasManager.getSharedManager(getActivity()).changeCamera(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(Integer.parseInt(m))), null, 0, 0);
-                            mAdaoter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
                             mDialog.dismiss();
                         }
                     }
@@ -159,7 +147,7 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
                             CamerasManager.getSharedManager(getActivity()).changeCamera((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(Integer.parseInt(m1))
                                     , ((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(Integer.parseInt(m2)))
                                     , Integer.parseInt(m1), Integer.parseInt(m2));
-                            mAdaoter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
                             mDialog.dismiss();
                         }
                     }
@@ -234,10 +222,7 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
 
     private void startChagneCameraUrl(final int position) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-
         final ScrollView mView = (ScrollView) LayoutInflater.from(getActivity()).inflate(R.layout.camer_setup_dilog_layout, null);
-
-
         mCameraName = (EditText) mView.findViewById(R.id.Camera_name_setup_layout);
         mCameraName.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getTitle());
         mCameraLink = (EditText) mView.findViewById(R.id.camera_link_settup_layout);
@@ -269,28 +254,6 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
                 mIconImage.setVisibility(View.VISIBLE);
                 AlertDialog.Builder mIconBuilder = new AlertDialog.Builder(getActivity());
 
-//                ListView mListView=new ListView(getActivity());
-//                BaseAdapter mAdpater=new BaseAdapter() {
-//                    @Override
-//                    public int getCount() {
-//                        return CamerasManager.getSharedManager(getActivity()).getManagers().size();
-//                    }
-//
-//                    @Override
-//                    public Object getItem(int i) {
-//                        return null;
-//                    }
-//
-//                    @Override
-//                    public long getItemId(int i) {
-//                        return 0;
-//                    }
-//
-//                    @Override
-//                    public View getView(int i, View view, ViewGroup viewGroup) {
-//                        return null;
-//                    }
-//                }
                 LinearLayout mLinearLayout = new LinearLayout(getActivity());
                 LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
                 mLinearLayout.setLayoutParams(mParams);
@@ -357,7 +320,7 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
                             CamerasManager.getSharedManager(getActivity()).updateCameraIconResource(position, -1);
                         }
 
-                        mAdaoter.notifyDataSetChanged();
+                        mAdapter.notifyDataSetChanged();
                         mDialog.dismiss();
                     }
                 }

@@ -37,7 +37,7 @@ public class SetupPanelCameraFragment extends BaseFragment implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imbtn_camera_edit_setuplayout:
-                addContentFragment(SetupCameraFragment.newInstance(), false);
+                addContentFragment(SetupCameraFragment.newInstance(), true);
                 break;
             case R.id.btnSetPanel:
                 startChangeUrl();
@@ -47,7 +47,7 @@ public class SetupPanelCameraFragment extends BaseFragment implements View.OnCli
 
 
     private void startChangeUrl() {
-        SetPanelAddressDialog setPanelAddressDialog = new SetPanelAddressDialog();
+        DialogSetPanelAddress setPanelAddressDialog = new DialogSetPanelAddress();
         setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         setPanelAddressDialog.show(getChildFragmentManager(), "TAG");
     }

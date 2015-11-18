@@ -12,9 +12,13 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.gson.Gson;
 import com.studioidan.turaco.App;
 import com.studioidan.turaco.MainActivity;
 import com.studioidan.turaco.R;
+import com.studioidan.turaco.entities.Panel;
+
+import org.json.JSONObject;
 
 
 public class GcmMessageHandler extends GcmListenerService {
@@ -24,8 +28,15 @@ public class GcmMessageHandler extends GcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        Log.d(TAG, "got push: " + data.toString());
         try {
+            String strJson = data.getString("message");
+            JSONObject message = new JSONObject(strJson).getJSONObject("message");
+
+            int opCode = message.getInt("pushOpCode");
+            Log.d(TAG, "got push code:" + opCode);
+            String pushMsg = message.getString("pushMsg");
+            String panelStatus = message.getString("panelStatus");
+            Panel panel = new Gson().fromJson(panelStatus,Panel.class);
 
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());

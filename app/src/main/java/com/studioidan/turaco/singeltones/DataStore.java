@@ -22,6 +22,7 @@ public class DataStore {
     private String password;
     private int apiInterval;
     private boolean isSirenOn;
+    private ArrayList<Camera> cameras;
 
     public boolean getIsSirenOn() {
         return isSirenOn;
@@ -48,8 +49,6 @@ public class DataStore {
             loadDefaultCameras();
         return cameras;
     }
-
-    private ArrayList<Camera> cameras;
 
     public String getUserName() {
         return userName;
@@ -95,8 +94,6 @@ public class DataStore {
     }
 
     private DataStore() {
-        //baseUrl = CPM.getString(Keys.BASE_URL, "http://69.64.63.136", App.getContext());
-        //panel = CPM.getString(Keys.PANEL, "8", App.getContext());
 
         baseUrl = CPM.getString(Keys.BASE_URL, "http://192.168.0.98", App.getContext());
         panel = CPM.getString(Keys.PANEL, "20", App.getContext());
@@ -116,11 +113,11 @@ public class DataStore {
 
     private void loadDefaultCameras() {
         cameras = new ArrayList<>();
-        cameras.add(new Camera("Camera1", "rtsp://213.57.178.193:4557/onvif1"));
-        cameras.add(new Camera("Camera2", "rtsp://t:turaco33@213.57.178.193:554/Streaming/Channels/1?transportmode=unicast&profile=Profile_1"));
-        cameras.add(new Camera("Camera3", "rtsp://213.57.178.193:4012/11"));
-        cameras.add(new Camera("Camera4", "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov"));
-        cameras.add(new Camera("Camera5", "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov"));
+        cameras.add(new Camera("Camera1", "rtsp://admin:magalcom3@192.168.0.175:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1"));
+        cameras.add(new Camera("Camera2", "rtsp://admin:magalcom3@192.168.0.177:554/Streaming/Channels/1?transportmode=unicast&profile=Profile_1"));
+        cameras.add(new Camera("Camera3", "rtsp://e:turaco31@62.219.121.230:554/Streaming/Channels/1?transportmode=unicast&profile=Profile_1"));
+        cameras.add(new Camera("Camera4", "rtsp://admin:magalcom3@213.57.178.193:554/Streaming/Channels/1?transportmode=unicast&profile=Profile_1"));
+        cameras.add(new Camera("Camera5", "rtsp://admin:magalcom3@62.219.121.230:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1"));
         cameras.add(new Camera("Camera6", "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov"));
     }
 }

@@ -1,12 +1,8 @@
 package com.studioidan.turaco.connection.manager;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.preference.PreferenceManager;
 
-import com.studioidan.turaco.CameraBroadCastReceiver;
 import com.studioidan.turaco.CustomView.AsyncCircularImageView;
 import com.studioidan.turaco.CustomView.OnPropertyChanged;
 import com.studioidan.turaco.Model.Camera;
@@ -183,7 +179,7 @@ public class CamerasManager extends ListModelManagerBase<Camera> {
     public SignalManager updateCameraPictureLink(int position, String mPictureLinkd) {
         ((Camera) ((List) getManagers()).get(position)).setPictureUrl(mPictureLinkd);
         PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("CameraPicture" + position, mPictureLinkd).commit();
-
+/*
         AlarmManager mAlarm = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         int Alarm_id = 33 + position;
         Intent mIntent = new Intent(getContext(), CameraBroadCastReceiver.class);
@@ -195,6 +191,7 @@ public class CamerasManager extends ListModelManagerBase<Camera> {
         //CHANGED BY EREZ TO REDUCE LATENCY
         // mAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, mPending);
         mAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 8000, mPending);
+        */
         return null;
     }
 

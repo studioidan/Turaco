@@ -9,9 +9,11 @@ public class Camera implements Serializable {
     public String name;
     public String url;
     public int image;
+    public String imageUrl;
 
     public Camera(String name, String url) {
         this.name = name;
         this.url = url;
+        this.imageUrl = "";
     }
 }

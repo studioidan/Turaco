@@ -20,9 +20,11 @@ import android.widget.ImageView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
+import com.studioidan.popapplibrary.CPM;
 import com.studioidan.popapplibrary.HttpAgent;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.alarm.AlarmService;
+import com.studioidan.turaco.entities.Keys;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
 
@@ -122,7 +124,7 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
 
     private void showSetupDialog() {
 
-        SetPanelAddressDialog setPanelAddressDialog = new SetPanelAddressDialog();
+        DialogSetPanelAddress setPanelAddressDialog = new DialogSetPanelAddress();
         setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         setPanelAddressDialog.show(getChildFragmentManager(), "TAG");
     }
@@ -160,6 +162,8 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("user", userName));
         params.add(new BasicNameValuePair("password", pass));
+        String regId = CPM.getString(Keys.REG_ID, "", getActivity());
+        params.add(new BasicNameValuePair("GcmToken", regId));
         new HttpAgent(ds.getBaseUrl() + ":8080/authenticateUser", "login", params, new HttpAgent.IRequestCallback() {
             @Override
             public void onRequestStart(String mMethodName) {

@@ -58,7 +58,7 @@ public class AlarmService extends Service {
                         //App.getContext().sendBroadcast(new Intent(ACTION_PANEL).putExtra(EXTRA_PANEL, panel));
 
                         //Alarm staff
-                        Log.d(TAG, "Panel Status call ended, alarm: " + panel.alarm);
+                        //Log.d(TAG, "Panel Status call ended, alarm: " + panel.alarm);
                         if (!AlarmActivity.isAlarmShowing && panel.alarm) {
                             counter = 0;
                             Log.d(TAG, "Sending alert");
