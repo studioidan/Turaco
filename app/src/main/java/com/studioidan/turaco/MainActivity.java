@@ -12,8 +12,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.studioidan.popapplibrary.CPM;
+import com.studioidan.turaco.Base.BaseFragment;
 import com.studioidan.turaco.CustomView.HeaderBar;
-import com.studioidan.turaco.Fragments.BaseFragment;
 import com.studioidan.turaco.Fragments.SignInFragment;
 import com.studioidan.turaco.Gcm.GCMClientManager;
 import com.studioidan.turaco.entities.Keys;
@@ -76,6 +76,7 @@ public class MainActivity extends FragmentActivity {
             return;
         }
 
+
         if (fragment != null) {
             mTransaction.replace(R.id.ll_content_fragment, fragment, tag).commitAllowingStateLoss();
             Log.d("Transactions", tag + " was replaced from memory");
@@ -91,15 +92,6 @@ public class MainActivity extends FragmentActivity {
         mTransaction.commitAllowingStateLoss();
     }
 
-    public void hideVirtualKeyBoard() {
-        try {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        } catch (NullPointerException mException) {
-            mException.printStackTrace();
-        }
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
 
     public Fragment getFragmentAt(int index) {
         if (getFragmentCount() <= 0)
@@ -119,6 +111,16 @@ public class MainActivity extends FragmentActivity {
         return getSupportFragmentManager().getBackStackEntryCount();
     }
 
+    public void hideVirtualKeyBoard() {
+        try {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (NullPointerException mException) {
+            mException.printStackTrace();
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mBar.getVisibility() == View.VISIBLE) {
@@ -131,25 +133,26 @@ public class MainActivity extends FragmentActivity {
 
     private void setPushStuff() {
         GCMClientManager pushClientManager = new GCMClientManager(this, getString(R.string.gcm_id));
-            pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
-                @Override
-                public void onSuccess(String registrationId, boolean isNewRegistration) {
-                    //Toast.makeText(MainActivity.this, registrationId, Toast.LENGTH_SHORT).show();
-                    Log.d(getClass().getName(), "got regId: " + registrationId);
-                    CPM.putString(Keys.REG_ID, registrationId, MainActivity.this);
-                    // SEND async device registration to your back-end server
-                    // linking user with device registration id
-                    // POST https://my-back-end.com/devices/register?user_id=123&device_id=abc
-                }
+        pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
+            @Override
+            public void onSuccess(String registrationId, boolean isNewRegistration) {
+                Log.d(getClass().getName(), "got regId: " + registrationId);
+                CPM.putString(Keys.REG_ID, registrationId, MainActivity.this);
+                // SEND async device registration to your back-end server
+                // linking user with device registration id
+                // POST https://my-back-end.com/devices/register?user_id=123&device_id=abc
+            }
 
-                @Override
-                public void onFailure(String ex) {
-                    super.onFailure(ex);
-                    Log.e(TAG, ex);
-                    // If there is an error registering, don't just keep trying to register.
-                    // Require the user to click a button again, or perform
-                    // exponential back-off when retrying.
-                }
+            @Override
+            public void onFailure(String ex) {
+                super.onFailure(ex);
+                Log.e(TAG, ex);
+                // If there is an error registering, don't just keep trying to register.
+                // Require the user to click a button again, or perform
+                // exponential back-off when retrying.
+            }
         });
     }
+
+
 }

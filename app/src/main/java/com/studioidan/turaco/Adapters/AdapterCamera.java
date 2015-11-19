@@ -5,26 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.entities.Camera;
 
 import java.util.ArrayList;
 
-/**
- * Created by PopApp_laptop on 18/11/2015.
- */
 public class AdapterCamera extends BaseAdapter {
+    private final LayoutInflater inflater;
+    Context context;
     ArrayList<Camera> data;
-    Context con;
-    LayoutInflater inflater;
 
-    public AdapterCamera(ArrayList<Camera> data, Context con) {
-        this.data = data;
-        this.con = con;
+    private int playingItem;
+
+    public AdapterCamera(Context con, ArrayList<Camera> d) {
+        context = con;
+        this.data = d;
+        playingItem = -100;
         inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override
@@ -46,13 +47,30 @@ public class AdapterCamera extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         Camera item = data.get(i);
 
-        View vi = view;
+        View v = view;
         if (view == null)
-            vi = inflater.inflate(R.layout.camera_item, null);
+            v = inflater.inflate(R.layout.camera_list_item, null);
 
-        TextView mText = ((TextView)vi.findViewById(R.id.tv_changecamer2camera2));
-        mText.setText(item.name);
+        ImageView img = (ImageView) v.findViewById(R.id.vd_camera_list_item);
+        if (item.image != 0)
+            img.setImageResource(item.image);
+        if (item.imageUrl != null && !item.imageUrl.isEmpty()) {
+            Picasso.with(context)
+                    .load(item.imageUrl)
+                    .into(img);
+        }
 
-        return vi;
+        TextView tvName = (TextView) v.findViewById(R.id.lbl_camera_list_item);
+        tvName.setText(item.name);
+
+        ImageView imgIsPlayingIndicator = (ImageView) v.findViewById(R.id.im_curreuntplaying);
+        imgIsPlayingIndicator.setVisibility(playingItem == i ? View.VISIBLE : View.INVISIBLE);
+
+        return v;
+    }
+
+    public void setPlayingItem(int playingItem) {
+        this.playingItem = playingItem;
+        notifyDataSetChanged();
     }
 }

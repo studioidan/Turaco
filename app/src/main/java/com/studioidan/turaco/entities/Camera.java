@@ -16,4 +16,11 @@ public class Camera implements Serializable {
         this.url = url;
         this.imageUrl = "";
     }
+
+    public Camera(Camera other) {
+        this.name = other.name;
+        this.url = other.url;
+        this.image = other.image;
+        this.imageUrl = other.imageUrl;
+    }
 }

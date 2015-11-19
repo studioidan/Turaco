@@ -9,10 +9,11 @@
         android:id="@+id/tvCameraActionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/SP10"
         android:gravity="center"
         android:padding="@dimen/S5"
-        android:text="Copy Camera Url" />
+        android:text="Copy Camera Url"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/SP10" />
 
     <RelativeLayout
         android:id="@+id/rlSourceCamera"
@@ -81,7 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/S4"
             android:layout_weight="1"
-            android:text="Copy" />
+            android:text="Copy"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btnCancel"
@@ -89,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/S4"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </LinearLayout>

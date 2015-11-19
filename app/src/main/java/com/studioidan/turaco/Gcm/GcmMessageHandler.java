@@ -9,13 +9,16 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
 import com.studioidan.turaco.App;
+import com.studioidan.turaco.Fragments.MainFragment;
 import com.studioidan.turaco.MainActivity;
 import com.studioidan.turaco.R;
+import com.studioidan.turaco.alarm.AlarmReceiver;
 import com.studioidan.turaco.entities.Panel;
 
 import org.json.JSONObject;
@@ -31,15 +34,34 @@ public class GcmMessageHandler extends GcmListenerService {
         try {
             String strJson = data.getString("message");
             JSONObject message = new JSONObject(strJson).getJSONObject("message");
-
             int opCode = message.getInt("pushOpCode");
-            Log.d(TAG, "got push code:" + opCode);
-            String pushMsg = message.getString("pushMsg");
             String panelStatus = message.getString("panelStatus");
-            Panel panel = new Gson().fromJson(panelStatus,Panel.class);
+            Panel panel = new Gson().fromJson(panelStatus, Panel.class);
+
+            if (opCode == 1 || opCode == 2 || opCode == 3) {
+                Intent intent = new Intent();
+                if (opCode == 1)
+                    intent.setAction(MainFragment.ACTION_ARM);
+                else if (opCode == 2)
+                    intent.setAction(MainFragment.ACTION_ARM_STAY);
+                else if (opCode == 3) {
+                    intent.setAction(MainFragment.ACTION_DISARM);
+
+                    /* also make sure the alert activity is of */
+                    App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_DISALERT));
+
+                }
+
+                intent.putExtra(MainFragment.EXTRA_PANEL, panel);
+                LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(intent);
+            } else if (opCode == 4) /*Alert*/ {
+                App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_ALERT));
+            }
+
+            Log.d(TAG, "got push code:" + opCode);
 
         } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+            Log.e(TAG, "push parsing failed! - " + ex.getMessage());
         }
     }
 

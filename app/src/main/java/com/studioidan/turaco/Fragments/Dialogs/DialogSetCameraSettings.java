@@ -110,7 +110,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
                 mCamera.url = etCameraVideoLink.getText().toString().trim();
                 mCamera.name = etCameraName.getText().toString().trim();
 
-                CameraManager.getInstance().SaveCameras();
+                CameraManager.getInstance().saveCameras();
 
                 dismiss();
                 break;

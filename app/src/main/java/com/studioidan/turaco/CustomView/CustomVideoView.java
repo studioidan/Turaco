@@ -13,14 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.sprylab.android.widget.TextureVideoView;
-import com.studioidan.turaco.Model.Camera;
 import com.studioidan.turaco.R;
-import com.studioidan.turaco.connection.manager.CamerasManager;
-
-import java.util.List;
+import com.studioidan.turaco.entities.Camera;
 
 //import com.sprylab.android.widget.TextureVideoView;
 
@@ -38,17 +34,14 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
     private TextureVideoView mView;
     private LinearLayout llLoader;
     private ImageView imgLoader;
-    private Uri mUri;
+    //private Uri mUri;
     private MediaController controller;
     ObjectAnimator animation;
-    private int position;
+    //private int position;
+    private Camera mCamera;
     LinearLayout titleHolder;
     TextView tvTitle;
 
-    public Uri getUri() {
-        return mUri;
-
-    }
 
     public CustomVideoView(Context context) {
         super(context);
@@ -79,19 +72,21 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
         controller = new MediaController(getContext());
     }
 
-    public void setVideoURI(Uri uri, int position) {
-        this.position = position;
+    public void setVideo(Camera camera) {
+        //this.position = position;
+        mCamera = camera;
         startAnimation();
-        Log.d(TAG, "trying to load video: " + uri.toString());
-        if (uri != mUri) {
-            mUri = uri;
-            mView.setVideoURI(mUri);
-            //controller.setMediaPlayer(mView);
-            //mView.setMediaController(controller);
-            mView.requestFocus();
-            mView.setOnPreparedListener(this);
-            mView.start();
-        }
+        Log.d(TAG, "trying to load video: " + camera.url);
+        //if (!mCamera.equals(camera)) {
+        //mUri = uri;
+        Uri uri = Uri.parse(mCamera.url);
+        mView.setVideoURI(uri);
+        //controller.setMediaPlayer(mView);
+        //mView.setMediaController(controller);
+        mView.requestFocus();
+        mView.setOnPreparedListener(this);
+        mView.start();
+        //}
     }
 
     public boolean isPlaying() {
@@ -119,8 +114,7 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
     }
 
     public void showTitle() {
-        String title = ((Camera) ((List) CamerasManager.getSharedManager(getContext()).getManagers()).get(position)).getTitle();
-        tvTitle.setText(title);
+        tvTitle.setText(mCamera.name);
         titleHolder.setVisibility(VISIBLE);
     }
 

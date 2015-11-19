@@ -10,7 +10,7 @@
         android:id="@+id/videoView1"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/videoViewHeight"
-        android:layout_margin="3dp"></com.studioidan.turaco.CustomView.CustomVideoView>
+        android:layout_margin="@dimen/S3" />
 
 
     <ListView
@@ -19,9 +19,9 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:divider="@android:color/transparent"
-        android:dividerHeight="15dip"
-        android:paddingLeft="15dip"
-        android:paddingRight="15dip"
+        android:dividerHeight="@dimen/S5"
+        android:paddingLeft="@dimen/S11"
+        android:paddingRight="@dimen/S11"
         android:visibility="visible"></ListView>
 
 </LinearLayout>

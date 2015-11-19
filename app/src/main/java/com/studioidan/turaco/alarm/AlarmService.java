@@ -18,8 +18,7 @@ import com.studioidan.turaco.singeltones.Factory;
  * Created by PopApp_laptop on 04/11/2015.
  */
 public class AlarmService extends Service {
-    public static final String ACTION_ALERT = "action.alert";
-    public static final String ACTION_DISALERT = "action.disalert";
+    //public static final String ACTION_DISALERT = "action.disalert";
     public static final String ACTION_PANEL = "action.panel";
     public static final String ACTION_START_REQUEST = "action.start.request";
     public static final String EXTRA_PANEL = "extra.panel";
@@ -55,7 +54,6 @@ public class AlarmService extends Service {
                     if (success) {
                         Panel panel = (Panel) result;
                         LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(new Intent(ACTION_PANEL).putExtra(EXTRA_PANEL, panel));
-                        //App.getContext().sendBroadcast(new Intent(ACTION_PANEL).putExtra(EXTRA_PANEL, panel));
 
                         //Alarm staff
                         //Log.d(TAG, "Panel Status call ended, alarm: " + panel.alarm);
@@ -63,11 +61,11 @@ public class AlarmService extends Service {
                             counter = 0;
                             Log.d(TAG, "Sending alert");
                             handler.removeCallbacks(runnable);
-                            App.getContext().sendBroadcast(new Intent(ACTION_ALERT));
+                            App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_ALERT));
                         }
                         if (AlarmActivity.isAlarmShowing && panel.arm == PanelManager.PANEL_STATUS_DISARM) {
                             handler.removeCallbacks(runnable);
-                            App.getContext().sendBroadcast(new Intent(ACTION_DISALERT));
+                            App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_DISALERT));
                         }
                     }
                     handler.postDelayed(runnable, DataStore.getInstance().getApiInterval() * 1000);

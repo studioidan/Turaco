@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/M10"
         android:text="Setup"
         android:textColor="#1E3C7D"
-        android:textSize="@dimen/SP16"
+        android:textSize="@dimen/SP19"
         android:textStyle="bold"
         android:typeface="sans" />
 
@@ -26,7 +26,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/S3"
+            android:layout_marginRight="@dimen/S5"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -58,7 +58,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/S3"
+            android:layout_marginLeft="@dimen/S3"
+
             android:gravity="center"
 
             android:orientation="vertical">

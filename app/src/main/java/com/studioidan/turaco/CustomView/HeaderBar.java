@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
 import com.studioidan.turaco.App;
-import com.studioidan.turaco.Fragments.CameraListFragment;
-import com.studioidan.turaco.Fragments.SetupPanelCameraFragment;
+import com.studioidan.turaco.Fragments.VideoWatchFragment;
+import com.studioidan.turaco.Fragments.SetupMainFragment;
 import com.studioidan.turaco.MainActivity;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.singeltones.DataStore;
@@ -93,11 +93,11 @@ public class HeaderBar extends LinearLayout implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.imbtn_camera_main_layout:
-                ((MainActivity) getContext()).addContentFragment(CameraListFragment.newInstance(), true);
+                ((MainActivity) getContext()).addContentFragment(VideoWatchFragment.newInstance(), true);
                 break;
 
             case R.id.imbtn_changeurl_main_layout:
-                ((MainActivity) getContext()).addContentFragment(SetupPanelCameraFragment.newInstance(), true);
+                ((MainActivity) getContext()).addContentFragment(SetupMainFragment.newInstance(), true);
                 break;
             case R.id.img_user_icon_main_layout:
                 ((MainActivity) getContext()).onBackPressed();

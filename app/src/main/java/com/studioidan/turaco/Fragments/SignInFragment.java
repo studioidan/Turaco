@@ -1,7 +1,6 @@
 package com.studioidan.turaco.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -21,9 +20,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
 import com.studioidan.popapplibrary.CPM;
 import com.studioidan.popapplibrary.HttpAgent;
+import com.studioidan.turaco.Base.BaseFragment;
 import com.studioidan.turaco.Fragments.Dialogs.DialogSetPanelAddress;
 import com.studioidan.turaco.R;
-import com.studioidan.turaco.alarm.AlarmService;
 import com.studioidan.turaco.entities.Keys;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
@@ -79,10 +78,7 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    @Override
-    public String tag() {
-        return getClass().getName();
-    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -179,8 +175,8 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
                         if (object.has("success")) {
                             boolean success = object.getBoolean("success");
                             if (success) {
-                                addContentFragment(PanelStateFragment.newInstance(getActivity()), false);
-                                getActivity().startService(new Intent(getActivity(), AlarmService.class));
+                                addContentFragment(MainFragment.newInstance(getActivity()), false);
+                                //getActivity().startService(new Intent(getActivity(), AlarmService.class));
                             } else {
                                 Factory.ShowErrorDialog(getActivity(), object);
                             }

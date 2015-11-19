@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
@@ -18,21 +17,19 @@ import android.widget.Button;
 
 import com.studioidan.turaco.App;
 import com.studioidan.turaco.CustomView.CustomVideoView;
-import com.studioidan.turaco.Fragments.PanelStateFragment;
-import com.studioidan.turaco.Model.Camera;
+import com.studioidan.turaco.Fragments.MainFragment;
 import com.studioidan.turaco.R;
-import com.studioidan.turaco.connection.manager.CamerasManager;
 import com.studioidan.turaco.entities.PanelManager;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
-
-import java.util.List;
 
 
 /**
  * Created by macbook on 9/27/15.
  */
 public class AlarmActivity extends Activity implements View.OnClickListener {
+    public static final String ACTION_DISALERT = "action.disalert";
+
     CustomVideoView mVideoView;
     Button btnCloseAndDisarm, btnClose;
     public static boolean isAlarmShowing = false;
@@ -72,8 +69,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     }
 
     private void startVideo() {
-        String uri = ((Camera) ((List) CamerasManager.getSharedManager(this).getManagers()).get(0)).getCameraUrl();
-        mVideoView.setVideoURI(Uri.parse(uri), 0);
+        mVideoView.setVideo(DataStore.getInstance().getCameras().get(0));
     }
 
     @Override
@@ -119,7 +115,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
         isAlarmShowing = true;
-        registerReceiver(receiver, new IntentFilter(AlarmService.ACTION_DISALERT));
+        registerReceiver(receiver, new IntentFilter(ACTION_DISALERT));
     }
 
     @Override
@@ -133,24 +129,26 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, Intent intent) {
-            if (PanelStateFragment.isShown) {
-                AlarmActivity.this.finish();
-                return;
-            }
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(AlarmActivity.this);
-            builder.setTitle("Panel status");
-            builder.setMessage("Turaco security system remotely disarmed!");
-            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+            if (ACTION_DISALERT.equals(intent.getAction())) {
+                if (MainFragment.isShown) {
                     AlarmActivity.this.finish();
+                    return;
                 }
-            });
 
-            if (alert == null) {
-                alert = builder.create();
-                alert.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(AlarmActivity.this);
+                builder.setTitle("Panel status");
+                builder.setMessage("Turaco security system remotely disarmed!");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        AlarmActivity.this.finish();
+                    }
+                });
+
+                if (alert == null) {
+                    alert = builder.create();
+                    alert.show();
+                }
             }
         }
     };
