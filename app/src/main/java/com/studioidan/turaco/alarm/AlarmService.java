@@ -23,7 +23,6 @@ public class AlarmService extends Service {
     public static final String ACTION_START_REQUEST = "action.start.request";
     public static final String EXTRA_PANEL = "extra.panel";
     public final String TAG = getClass().getName();
-    // private long INTERVAL = 5000;
 
     private Handler handler;
     private int counter = 0;
