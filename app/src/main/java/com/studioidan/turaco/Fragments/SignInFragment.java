@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +125,7 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
     private void showSetupDialog() {
 
         DialogSetPanelAddress setPanelAddressDialog = new DialogSetPanelAddress();
-        setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        //setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         setPanelAddressDialog.show(getChildFragmentManager(), "TAG");
     }
 

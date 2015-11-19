@@ -11,15 +11,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.studioidan.turaco.Adapters.AdapterCamera;
-import com.studioidan.turaco.CustomView.AsyncCircularImageView;
+import com.studioidan.turaco.Fragments.Dialogs.DialogCameraActions;
 import com.studioidan.turaco.Fragments.Dialogs.DialogSetCameraSettings;
 import com.studioidan.turaco.Model.Camera;
 import com.studioidan.turaco.R;
@@ -64,8 +61,6 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
         mGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //startChagneCameraUrl(position);
-
                 DialogSetCameraSettings dialogSetCameraSettings = DialogSetCameraSettings.getInstance(position);
                 dialogSetCameraSettings.show(getChildFragmentManager(), "TAG");
             }
@@ -78,14 +73,18 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-
+        DialogCameraActions dialogCameraActions;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         mBuilder.setTitle(R.string.camera_changeurl);
 
         switch (view.getId()) {
+
             case R.id.imv_camera2all:
             case R.id.tv_changeCamerAll:
 
+                dialogCameraActions = DialogCameraActions.getInstance(DialogCameraActions.ACTION_COPY_ALL);
+                dialogCameraActions.show(getChildFragmentManager(), "TAG");
+                if (1 == 1) return;
                 LinearLayout mLayout = new LinearLayout(getActivity());
                 mLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 TextView mCameraNumbmer = new TextView(getActivity());
@@ -119,6 +118,10 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.tv_changecamer2camera:
             case R.id.imv_caner2acamer:
+                dialogCameraActions = DialogCameraActions.getInstance(DialogCameraActions.ACTION_COPY_ONE);
+                dialogCameraActions.show(getChildFragmentManager(), "TAG");
+
+                if (1 == 1) return;
                 LinearLayout mLayout2 = new LinearLayout(getActivity());
                 mLayout2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 TextView mCameraNumbmer1 = new TextView(getActivity());
@@ -184,127 +187,6 @@ public class SetupCameraFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onLoading(SignalManager signal, boolean loading) {
-
-    }
-
-    EditText mCameraLink, mCameraName, mPictureLink;
-    ImageView mIconImage;
-    TextView mIconLbl;
-    AlertDialog mIconDialog = null;
-
-    private void startChagneCameraUrl(final int position) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-        final ScrollView mView = (ScrollView) LayoutInflater.from(getActivity()).inflate(R.layout.camer_setup_dilog_layout, null);
-        mCameraName = (EditText) mView.findViewById(R.id.etCameraImageUrl);
-        mCameraName.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getTitle());
-        mCameraLink = (EditText) mView.findViewById(R.id.etCameraImageUrl);
-        mCameraLink.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getCameraUrl());
-        mPictureLink = (EditText) mView.findViewById(R.id.etCameraImageUrl);
-        mIconImage = (ImageView) mView.findViewById(R.id.camer_icon_setup_layout);
-        mIconLbl = (TextView) mView.findViewById(R.id.lbl_camera_name);
-        if (((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getmIconLogo() != 0) {
-            mPictureLink.setVisibility(View.INVISIBLE);
-            mIconLbl.setVisibility(View.VISIBLE);
-            mIconLbl.setText(mCameraName.getText().toString());
-            mIconImage.setVisibility(View.VISIBLE);
-            mIconImage.setBackgroundResource(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getmIconLogo());
-        } else {
-            mPictureLink.setText(((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getPictureUrl());
-        }
-
-
-        Button mButton = (Button) mView.findViewById(R.id.btnLoadIcon);
-        Button mBloadICon = (Button) mView.findViewById(R.id.btnPanelAddressSave);
-        mBloadICon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPictureLink.setVisibility(View.INVISIBLE);
-                mPictureLink.setText("");
-                mIconLbl.setVisibility(View.VISIBLE);
-                mIconLbl.setText(mCameraName.getText().toString());
-
-                mIconImage.setVisibility(View.VISIBLE);
-                AlertDialog.Builder mIconBuilder = new AlertDialog.Builder(getActivity());
-
-                LinearLayout mLinearLayout = new LinearLayout(getActivity());
-                LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-                mLinearLayout.setLayoutParams(mParams);
-                mLinearLayout.setBackgroundColor(getResources().getColor(R.color.background_dark_blue));
-                mLinearLayout.setOrientation(LinearLayout.VERTICAL);
-                HorizontalScrollView mscrollView = new HorizontalScrollView(getActivity());
-                LinearLayout mImageContainer = new LinearLayout(getActivity());
-                LinearLayout.LayoutParams mImageContainerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                mImageContainer.setPadding(10, 10, 10, 10);
-                mImageContainer.setLayoutParams(mImageContainerParams);
-                mImageContainer.setOrientation(LinearLayout.HORIZONTAL);
-                int hieght = 0, width = 0;
-                for (int i = 0; i < CamerasManager.getSharedManager(getActivity()).getmPhotos().length; i++) {
-                    AsyncCircularImageView mImageView = (AsyncCircularImageView) LayoutInflater.from(getActivity()).inflate(R.layout.icon_item_layout, null);
-                    mImageView.setBackgroundResource(CamerasManager.getSharedManager(getActivity()).getmPhotos()[i]);
-
-                    LinearLayout.LayoutParams mParamss = new LinearLayout.LayoutParams(140, 140);
-                    mParamss.setMargins(10, 10, 10, 10);
-                    mImageView.setLayoutParams(mParamss);
-
-                    final int j = i;
-                    mImageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            mIconImage.setBackground(((ImageView)view).getDrawable());
-                            mIconImage.setBackgroundResource(CamerasManager.getSharedManager(getActivity()).getmSelectedPhotos()[j]);
-                            mIconImage.setTag(CamerasManager.getSharedManager(getActivity()).getmPhotos()[j]);
-                            mIconLbl.setText(CamerasManager.getSharedManager(getActivity()).getmCameraName()[j]);
-                            mPictureLink.setText("");
-                            mIconDialog.dismiss();
-                        }
-                    });
-                    mImageContainer.addView(mImageView);
-
-                }
-                mscrollView.addView(mImageContainer);
-                mLinearLayout.addView(mscrollView);
-
-                mIconBuilder.setView(mLinearLayout);
-                mIconDialog = mIconBuilder.create();
-                mIconDialog.show();
-
-
-            }
-        });
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mCameraLink.getText().toString().contains("=disarm")) {
-                    Toast.makeText(mCameraLink.getContext(), "please use arm panel url", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (((Camera) ((List) CamerasManager.getSharedManager(getActivity()).getManagers()).get(position)).getCameraUrl() != mCameraLink.getText().toString()) {
-                        String mg = mCameraLink.getText().toString();
-                        String mName = mCameraName.getText().toString();
-                        CamerasManager.getSharedManager(getActivity()).updateCameraInfo(position, mg, mName);//.onCompleted().onLoading().onError()
-                        //if (mPictureLink.getVisibility() == View.VISIBLE) {
-                        String mPictureLinkd = mPictureLink.getText().toString();
-                        CamerasManager.getSharedManager(getActivity()).updateCameraPictureLink(position, mPictureLinkd);
-                        //} else {
-                        if (mIconImage.getVisibility() == View.VISIBLE) {
-                            int mIconImageResource = (int) mIconImage.getTag();
-                            CamerasManager.getSharedManager(getActivity()).updateCameraIconResource(position, mIconImageResource);
-                        } else {
-                            CamerasManager.getSharedManager(getActivity()).updateCameraIconResource(position, -1);
-                        }
-
-                        mAdapter.notifyDataSetChanged();
-                        mDialog.dismiss();
-                    }
-                }
-            }
-        });
-
-        mView.setBackgroundResource(android.R.color.white);
-        mBuilder.setView(mView);
-
-
-        mDialog = mBuilder.create();
-        mDialog.show();
 
     }
 

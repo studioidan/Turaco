@@ -24,6 +24,12 @@ public class DataStore {
     private boolean isSirenOn;
     private ArrayList<Camera> cameras;
 
+    public boolean setCameras(ArrayList<Camera> cameras) {
+        this.cameras = cameras;
+         return CPM.putObject(Keys.CAMERAS, cameras, App.getContext());
+    }
+
+
     public boolean getIsSirenOn() {
         return isSirenOn;
     }
@@ -33,7 +39,6 @@ public class DataStore {
         CPM.putBoolean(Keys.IS_SIREN_ON, isSirenOn, App.getContext());
     }
 
-
     public int getApiInterval() {
         return apiInterval;
     }
@@ -42,7 +47,6 @@ public class DataStore {
         this.apiInterval = apiInterval;
         CPM.putInt(Keys.INTERVAL, apiInterval, App.getContext());
     }
-
 
     public ArrayList<Camera> getCameras() {
         if (cameras == null)
@@ -103,7 +107,7 @@ public class DataStore {
 
         apiInterval = CPM.getInt(Keys.INTERVAL, 4, App.getContext());
 
-        isSirenOn = CPM.getBoolean(Keys.IS_SIREN_ON,false,App.getContext());
+        isSirenOn = CPM.getBoolean(Keys.IS_SIREN_ON, false, App.getContext());
 
         cameras = (ArrayList<Camera>) CPM.getArrayObject(Keys.CAMERAS, new TypeToken<List<Camera>>() {
         }.getType(), App.getContext());

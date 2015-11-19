@@ -24,6 +24,7 @@ public class AdapterCamera extends BaseAdapter {
         this.data = data;
         this.con = con;
         inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override

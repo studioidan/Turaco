@@ -2,7 +2,6 @@ package com.studioidan.turaco.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,7 @@ public class SetupPanelCameraFragment extends BaseFragment implements View.OnCli
 
     private void startChangeUrl() {
         DialogSetPanelAddress setPanelAddressDialog = new DialogSetPanelAddress();
-        setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        //setPanelAddressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         setPanelAddressDialog.show(getChildFragmentManager(), "TAG");
     }
 
