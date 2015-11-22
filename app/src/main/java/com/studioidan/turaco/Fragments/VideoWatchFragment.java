@@ -3,6 +3,7 @@ package com.studioidan.turaco.Fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,13 @@ import com.studioidan.turaco.Adapters.AdapterCamera;
 import com.studioidan.turaco.Base.BaseFragment;
 import com.studioidan.turaco.CustomView.CustomVideoView;
 import com.studioidan.turaco.R;
+import com.studioidan.turaco.entities.Camera;
 
 
 /**
  * Created by popApp.
  */
-public class VideoWatchFragment extends BaseFragment implements View.OnClickListener {
+public class VideoWatchFragment extends BaseFragment implements View.OnClickListener, AdapterCamera.CameraItemCallback {
     AdapterCamera mAdapter;
     CustomVideoView mVideoView;
     View mView;
@@ -39,7 +41,7 @@ public class VideoWatchFragment extends BaseFragment implements View.OnClickList
         mVideoView = (CustomVideoView) mView.findViewById(R.id.videoView1);
         mVideoView.setOnClickListener(this);
 
-        mAdapter = new AdapterCamera(getActivity(),ds.getCameras());
+        mAdapter = new AdapterCamera(getActivity(), ds.getCameras(), this);
         mList.setAdapter(mAdapter);
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,5 +97,11 @@ public class VideoWatchFragment extends BaseFragment implements View.OnClickList
             mList.setVisibility(View.VISIBLE);
             isFullScreen = false;
         }
+    }
+
+    /* here we want to show static image */
+    @Override
+    public void onStaticImageClick(Camera camera, int position) {
+        Log.d(getClass().getName(),"static press:" + position);
     }
 }

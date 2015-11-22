@@ -20,11 +20,13 @@ public class AdapterCamera extends BaseAdapter {
     ArrayList<Camera> data;
 
     private int playingItem;
+    CameraItemCallback callback;
 
-    public AdapterCamera(Context con, ArrayList<Camera> d) {
+    public AdapterCamera(Context con, ArrayList<Camera> d, CameraItemCallback callback) {
         context = con;
         this.data = d;
         playingItem = -100;
+        this.callback = callback;
         inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -44,20 +46,37 @@ public class AdapterCamera extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Camera item = data.get(i);
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+        final Camera item = data.get(i);
 
         View v = view;
         if (view == null)
             v = inflater.inflate(R.layout.camera_list_item, null);
 
         ImageView img = (ImageView) v.findViewById(R.id.vd_camera_list_item);
-        if (item.image != 0)
+        img.setVisibility((item.videoUrl == null || item.videoUrl.isEmpty()) ? View.INVISIBLE : View.VISIBLE);
+
+        if (item.image != 0) {
             img.setImageResource(item.image);
+        }
         if (item.imageUrl != null && !item.imageUrl.isEmpty()) {
             Picasso.with(context)
                     .load(item.imageUrl)
                     .into(img);
+        }
+
+        ImageView imgStatic = (ImageView) v.findViewById(R.id.imgStatic);
+        if (item.staticImageUrl.isEmpty()) {
+            imgStatic.setVisibility(View.INVISIBLE);
+        } else {
+            imgStatic.setVisibility(View.VISIBLE);
+            imgStatic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (callback != null)
+                        callback.onStaticImageClick(item, i);
+                }
+            });
         }
 
         TextView tvName = (TextView) v.findViewById(R.id.lbl_camera_list_item);
@@ -65,12 +84,15 @@ public class AdapterCamera extends BaseAdapter {
 
         ImageView imgIsPlayingIndicator = (ImageView) v.findViewById(R.id.im_curreuntplaying);
         imgIsPlayingIndicator.setVisibility(playingItem == i ? View.VISIBLE : View.INVISIBLE);
-
         return v;
     }
 
     public void setPlayingItem(int playingItem) {
         this.playingItem = playingItem;
         notifyDataSetChanged();
+    }
+
+    public interface CameraItemCallback {
+        void onStaticImageClick(Camera camera, int position);
     }
 }

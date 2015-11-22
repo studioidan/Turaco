@@ -81,7 +81,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
 
 
         etCameraName.setText(mCamera.name);
-        etCameraVideoLink.setText(mCamera.url);
+        etCameraVideoLink.setText(mCamera.videoUrl);
         etCameraImageUrl.setText(mCamera.imageUrl);
         iconResource = mCamera.image;
 
@@ -107,8 +107,8 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
                 mCamera.image = isIconSourceUrl ? 0 : iconResource;
                 mCamera.imageUrl = isIconSourceUrl ? etCameraImageUrl.getText().toString().trim() : "";
 
-                mCamera.url = etCameraVideoLink.getText().toString().trim();
-                mCamera.name = etCameraName.getText().toString().trim();
+                mCamera.videoUrl = etCameraVideoLink.getText().toString().trim();
+                mCamera.videoUrl = etCameraName.getText().toString().trim();
 
                 CameraManager.getInstance().saveCameras();
 

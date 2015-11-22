@@ -7,20 +7,23 @@ import java.io.Serializable;
  */
 public class Camera implements Serializable {
     public String name;
-    public String url;
+    public String videoUrl;
     public int image;
     public String imageUrl;
+    public String staticImageUrl;
 
     public Camera(String name, String url) {
         this.name = name;
-        this.url = url;
+        this.videoUrl = url;
         this.imageUrl = "";
+        staticImageUrl = "";
     }
 
     public Camera(Camera other) {
         this.name = other.name;
-        this.url = other.url;
+        this.videoUrl = other.videoUrl;
         this.image = other.image;
         this.imageUrl = other.imageUrl;
+        this.staticImageUrl = other.staticImageUrl;
     }
 }

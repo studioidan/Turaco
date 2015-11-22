@@ -76,10 +76,10 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
         //this.position = position;
         mCamera = camera;
         startAnimation();
-        Log.d(TAG, "trying to load video: " + camera.url);
+        Log.d(TAG, "trying to load video: " + camera.videoUrl);
         //if (!mCamera.equals(camera)) {
         //mUri = uri;
-        Uri uri = Uri.parse(mCamera.url);
+        Uri uri = Uri.parse(mCamera.videoUrl);
         mView.setVideoURI(uri);
         //controller.setMediaPlayer(mView);
         //mView.setMediaController(controller);
