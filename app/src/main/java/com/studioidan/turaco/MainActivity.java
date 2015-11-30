@@ -11,12 +11,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.studioidan.popapplibrary.CPM;
 import com.studioidan.turaco.Base.BaseFragment;
 import com.studioidan.turaco.CustomView.HeaderBar;
 import com.studioidan.turaco.Fragments.SignInFragment;
-import com.studioidan.turaco.Gcm.GCMClientManager;
-import com.studioidan.turaco.entities.Keys;
 
 
 public class MainActivity extends FragmentActivity {
@@ -33,7 +30,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setPushStuff();
         //Handle HeaderBar configuration change
         mBar = (HeaderBar) findViewById(R.id.header_bar_main_activity);
         if (savedInstanceState != null) {
@@ -131,28 +127,7 @@ public class MainActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
     }
 
-    private void setPushStuff() {
-        GCMClientManager pushClientManager = new GCMClientManager(this, getString(R.string.gcm_id));
-        pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
-            @Override
-            public void onSuccess(String registrationId, boolean isNewRegistration) {
-                Log.d(getClass().getName(), "got regId: " + registrationId);
-                CPM.putString(Keys.REG_ID, registrationId, MainActivity.this);
-                // SEND async device registration to your back-end server
-                // linking user with device registration id
-                // POST https://my-back-end.com/devices/register?user_id=123&device_id=abc
-            }
 
-            @Override
-            public void onFailure(String ex) {
-                super.onFailure(ex);
-                Log.e(TAG, ex);
-                // If there is an error registering, don't just keep trying to register.
-                // Require the user to click a button again, or perform
-                // exponential back-off when retrying.
-            }
-        });
-    }
 
 
 }

@@ -17,8 +17,27 @@ public class CameraManager {
 
     private DataStore ds = DataStore.getInstance();
 
-    public static int[] cameraIcons = new int[]{R.drawable.entrance, R.drawable.livingroom, R.drawable.ic_places_garage_kitchen, R.drawable.ic_places_garage, R.drawable.ic_places_bed_room, R.drawable.garden, R.drawable.pool, R.drawable.ic_places_camera};
-    public static int[] cameraIconsSelected = new int[]{R.drawable.entrance, R.drawable.livingroom, R.drawable.ic_places_popup_garage_kitchen, R.drawable.ic_places_popup_garage, R.drawable.ic_places_popup_bed_room, R.drawable.garden, R.drawable.pool, R.drawable.ic_places_popup_camera};
+    public static int[] cameraIconsBlue = new int[]{
+            R.drawable.ic_1_blue,
+            R.drawable.ic_2_blue,
+            R.drawable.ic_3_blue,
+            R.drawable.ic_4_blue,
+            R.drawable.ic_5_blue,
+            R.drawable.ic_6_blue,
+            R.drawable.ic_7_blue,
+            R.drawable.ic_8_blue,
+            R.drawable.ic_9_blue};
+
+    public static int[] cameraIconsWhite = new int[]{
+            R.drawable.ic_1_white,
+            R.drawable.ic_2_white,
+            R.drawable.ic_3_white,
+            R.drawable.ic_4_white,
+            R.drawable.ic_5_white,
+            R.drawable.ic_6_white,
+            R.drawable.ic_7_white,
+            R.drawable.ic_8_white,
+            R.drawable.ic_9_white};
 
     public boolean saveCameras() {
         return ds.setCameras(ds.getCameras());

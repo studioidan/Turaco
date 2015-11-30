@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -22,10 +24,12 @@ import com.studioidan.popapplibrary.CPM;
 import com.studioidan.popapplibrary.HttpAgent;
 import com.studioidan.turaco.Base.BaseFragment;
 import com.studioidan.turaco.Fragments.Dialogs.DialogSetPanelAddress;
+import com.studioidan.turaco.Gcm.GCMClientManager;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.entities.Keys;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
+import com.studioidan.turaco.singeltones.TLog;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -38,12 +42,14 @@ import java.util.ArrayList;
  * Created by macbook on 8/19/15.
  */
 public class SignInFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    public final String TAG = getClass().getName();
 
-    Button bSignIn;
+    Button btnSignIn;
     CheckBox mCheckBox;
     EditText etUserName, etPassword;
     ImageView imgLogo;
     private DataStore ds = DataStore.getInstance();
+
 
     public static SignInFragment newInstance() {
         SignInFragment mFragment = new SignInFragment();
@@ -51,14 +57,19 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mLayout = inflater.inflate(R.layout.sign_in_layout, null);
-        bSignIn = (Button) mLayout.findViewById(R.id.btn_sign_in_layout);
+        btnSignIn = (Button) mLayout.findViewById(R.id.btn_sign_in_layout);
         etUserName = (EditText) mLayout.findViewById(R.id.ed_user_name_sign_in_layout);
         etPassword = (EditText) mLayout.findViewById(R.id.ed_user_pass_sign_in_layout);
         mCheckBox = (CheckBox) mLayout.findViewById(R.id.ch_rember_sign_in_layout);
         imgLogo = (ImageView) mLayout.findViewById(R.id.imgSignLogo);
-        bSignIn.setOnClickListener(this);
+        btnSignIn.setOnClickListener(this);
 
 
         etUserName.setText(ds.getUserName());
@@ -75,16 +86,14 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
         });
 
         return mLayout;
-
     }
-
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         hideVirtualKeyBoard();
         startAnimation();
+        setPushStuff();
     }
 
     private void startAnimation() {
@@ -202,4 +211,31 @@ public class SignInFragment extends BaseFragment implements View.OnClickListener
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    private void setPushStuff() {
+        GCMClientManager pushClientManager = new GCMClientManager(getActivity(), getString(R.string.gcm_id));
+        pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
+            @Override
+            public void onSuccess(String registrationId, boolean isNewRegistration) {
+                Log.d(getClass().getName(), "got regId: " + registrationId);
+                CPM.putString(Keys.REG_ID, registrationId, getActivity());
+                // SEND async device registration to your back-end server
+                // linking user with device registration id
+                // POST https://my-back-end.com/devices/register?user_id=123&device_id=abc
+                btnSignIn.setEnabled(true);
+                btnSignIn.setText("Login");
+            }
+
+            @Override
+            public void onFailure(String ex) {
+                super.onFailure(ex);
+                TLog.e(TAG, ex);
+                Toast.makeText(getActivity(), "Could not get push token -> " + ex, Toast.LENGTH_LONG).show();
+                // If there is an error registering, don't just keep trying to register.
+                // Require the user to click a button again, or perform
+                // exponential back-off when retrying.
+            }
+        });
+    }
+
 }

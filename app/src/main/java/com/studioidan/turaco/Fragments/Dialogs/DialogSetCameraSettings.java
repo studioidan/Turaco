@@ -31,7 +31,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
     private int iconResource;
 
 
-    EditText etCameraName, etCameraVideoLink, etCameraImageUrl;
+    EditText etCameraName, etCameraVideoLink, etCameraImageUrl, etStaticImageUrl;
     Button btnIconSource, btnSave, btnLoadUrl;
     RecyclerView rv;
     ImageView imgIcon;
@@ -64,6 +64,8 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
         etCameraName = (EditText) view.findViewById(R.id.etCameraName);
         etCameraVideoLink = (EditText) view.findViewById(R.id.etCameraVideoUrl);
         etCameraImageUrl = (EditText) view.findViewById(R.id.etCameraImageUrl);
+        etStaticImageUrl = (EditText) view.findViewById(R.id.etStaticImageUrl);
+
         rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
         imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
@@ -83,6 +85,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
         etCameraName.setText(mCamera.name);
         etCameraVideoLink.setText(mCamera.videoUrl);
         etCameraImageUrl.setText(mCamera.imageUrl);
+        etStaticImageUrl.setText(mCamera.staticImageUrl);
         iconResource = mCamera.image;
 
         if (mCamera.imageUrl != null && !mCamera.imageUrl.isEmpty()) {
@@ -94,7 +97,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
     }
 
     private void setAdapter() {
-        rv.setAdapter(new AdapterGallery(getActivity(), CameraManager.cameraIcons).setCallback(this));
+        rv.setAdapter(new AdapterGallery(getActivity(), CameraManager.cameraIconsBlue).setCallback(this));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(llm);
     }
@@ -109,6 +112,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
 
                 mCamera.videoUrl = etCameraVideoLink.getText().toString().trim();
                 mCamera.videoUrl = etCameraName.getText().toString().trim();
+                mCamera.staticImageUrl = etStaticImageUrl.getText().toString().trim();
 
                 CameraManager.getInstance().saveCameras();
 
@@ -149,7 +153,7 @@ public class DialogSetCameraSettings extends DialogFragment implements View.OnCl
 
     @Override
     public void onImageClick(int pos) {
-        iconResource = CameraManager.cameraIconsSelected[pos];
+        iconResource = CameraManager.cameraIconsWhite[pos];
         imgIcon.setImageResource(iconResource);
     }
 }

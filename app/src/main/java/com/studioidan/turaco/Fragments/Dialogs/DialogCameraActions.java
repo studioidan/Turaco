@@ -76,8 +76,7 @@ public class DialogCameraActions extends DialogFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        if(v.getId()==R.id.btnCancel)
-        {
+        if (v.getId() == R.id.btnCancel) {
             dismiss();
             return;
         }

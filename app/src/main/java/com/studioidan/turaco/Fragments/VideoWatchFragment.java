@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -35,33 +34,27 @@ public class VideoWatchFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //super.onCreateView(inflater,container,savedInstanceState);
         mView = inflater.inflate(R.layout.camera_list_layout, container, false);
-        mList = (ListView) mView.findViewById(R.id.ls_camera_list_layout);
-        mVideoView = (CustomVideoView) mView.findViewById(R.id.videoView1);
-        mVideoView.setOnClickListener(this);
-
-        mAdapter = new AdapterCamera(getActivity(), ds.getCameras(), this);
-        mList.setAdapter(mAdapter);
-
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mVideoView.setVideo(ds.getCameras().get(i));
-                mAdapter.setPlayingItem(i);
-            }
-        });
-
-        mVideoView.setVideo(ds.getCameras().get(0));
-        mAdapter.setPlayingItem(0);
-
-
         return mView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mList = (ListView) mView.findViewById(R.id.ls_camera_list_layout);
+        mVideoView = (CustomVideoView) mView.findViewById(R.id.videoView1);
+        mVideoView.setOnClickListener(this);
+
+        mAdapter = new AdapterCamera(getActivity(), ds.getCameras(), this);
+        mList.setAdapter(mAdapter);
+        Camera camera = ds.getCameras().get(0);
+        if (camera.videoUrl.isEmpty())
+            mVideoView.setStaticImage(camera);
+        else if (camera.staticImageUrl != null && !camera.staticImageUrl.isEmpty())
+            mVideoView.setVideo(camera);
+
+        mAdapter.setPlayingItem(0);
         calculateSizeData();
     }
 
@@ -85,7 +78,6 @@ public class VideoWatchFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         int DURATION = 500;
-
         if (!isFullScreen) {
             mList.setVisibility(View.GONE);
             mVideoView.animate().scaleX(ratH).scaleY(ratW).rotation(90f).setDuration(DURATION).start();
@@ -102,6 +94,14 @@ public class VideoWatchFragment extends BaseFragment implements View.OnClickList
     /* here we want to show static image */
     @Override
     public void onStaticImageClick(Camera camera, int position) {
-        Log.d(getClass().getName(),"static press:" + position);
+        Log.d(getClass().getName(), "static press:" + position);
+        mVideoView.setStaticImage(camera);
+        mAdapter.setPlayingItem(position);
+    }
+
+    @Override
+    public void onItemClick(Camera camera, int position) {
+        mVideoView.setVideo(camera);
+        mAdapter.setPlayingItem(position);
     }
 }

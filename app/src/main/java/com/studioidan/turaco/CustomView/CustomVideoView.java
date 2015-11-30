@@ -2,8 +2,10 @@ package com.studioidan.turaco.CustomView;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -11,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sprylab.android.widget.TextureVideoView;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.entities.Camera;
+import com.studioidan.turaco.singeltones.Factory;
+import com.studioidan.turaco.singeltones.ImageDownloader;
 
 //import com.sprylab.android.widget.TextureVideoView;
 
@@ -27,70 +31,92 @@ import com.studioidan.turaco.entities.Camera;
 public class CustomVideoView extends LinearLayout implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnInfoListener {
     private static final String TAG = "CustomVideoView";
 
-    public TextureVideoView getmView() {
-        return mView;
-    }
+    ObjectAnimator animation;
+    private Camera mCamera;
+    private boolean isStaticImage = false;
+    private AsyncTask<String, Bitmap, Bitmap> imageDownloader;
 
-    private TextureVideoView mView;
+    //views
+    private TextureVideoView mVideoView;
     private LinearLayout llLoader;
     private ImageView imgLoader;
-    //private Uri mUri;
-    private MediaController controller;
-    ObjectAnimator animation;
-    //private int position;
-    private Camera mCamera;
     LinearLayout titleHolder;
     TextView tvTitle;
+    ImageView imgStaticImage;
+    Context mContext;
 
+    public TextureVideoView getmVideoView() {
+        return mVideoView;
+    }
 
     public CustomVideoView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public CustomVideoView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public CustomVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
-    public void init() {
+    public void init(Context con) {
+        this.mContext = con;
         LayoutInflater.from(getContext()).inflate(R.layout.custom_video_view, this, true);
-        mView = (TextureVideoView) findViewById(R.id.customVideoView);
+        mVideoView = (TextureVideoView) findViewById(R.id.customVideoView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            mView.setOnInfoListener(this);
+            mVideoView.setOnInfoListener(this);
         }
-        mView.setOnErrorListener(this);
+        mVideoView.setOnErrorListener(this);
         llLoader = (LinearLayout) findViewById(R.id.loader);
         imgLoader = (ImageView) findViewById(R.id.imgLoader);
         titleHolder = (LinearLayout) findViewById(R.id.titleHolder);
         tvTitle = (TextView) findViewById(R.id.tvVideoTitle);
-        controller = new MediaController(getContext());
+        imgStaticImage = (ImageView) findViewById(R.id.imgStaticImage);
     }
 
     public void setVideo(Camera camera) {
-        //this.position = position;
+        isStaticImage = false;
+        if (imageDownloader != null) imageDownloader.cancel(true);
+
         mCamera = camera;
         startAnimation();
-        Log.d(TAG, "trying to load video: " + camera.videoUrl);
-        //if (!mCamera.equals(camera)) {
-        //mUri = uri;
         Uri uri = Uri.parse(mCamera.videoUrl);
-        mView.setVideoURI(uri);
-        //controller.setMediaPlayer(mView);
-        //mView.setMediaController(controller);
-        mView.requestFocus();
-        mView.setOnPreparedListener(this);
-        mView.start();
-        //}
+        mVideoView.setVideoURI(uri);
+        mVideoView.requestFocus();
+        mVideoView.setOnPreparedListener(this);
+        mVideoView.start();
+
+    }
+
+    public void setStaticImage(Camera camera) {
+        isStaticImage = true;
+        if (imageDownloader != null) imageDownloader.cancel(true);
+        mCamera = camera;
+        mVideoView.stopPlayback();
+        startAnimation();
+        imageDownloader = new ImageDownloader(camera.staticImageUrl, new Factory.GenericCallbackOne() {
+            @Override
+            public void onDone(Object result) {
+                stopAnimation();
+                imgStaticImage.setVisibility(VISIBLE);
+                if (result != null) {
+                    Bitmap bitmap = (Bitmap) result;
+                    imgStaticImage.setImageBitmap(bitmap);
+                    imgStaticImage.setVisibility(VISIBLE);
+                } else {
+                    Toast.makeText(mContext, "Error loading image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).execute(camera.staticImageUrl);
     }
 
     public boolean isPlaying() {
-        if (mView != null && mView.isPlaying()) {
+        if (mVideoView != null && mVideoView.isPlaying()) {
             return true;
         }
         return false;
@@ -103,8 +129,10 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
     }
 
     private void startAnimation() {
-        titleHolder.setVisibility(INVISIBLE);
+        imgLoader.setImageResource(isStaticImage ? R.drawable.img_static_image : R.drawable.turcaosmalltransparent);
+        imgStaticImage.setVisibility(INVISIBLE);
         llLoader.setVisibility(VISIBLE);
+        titleHolder.setVisibility(INVISIBLE);
 
         animation = ObjectAnimator.ofFloat(imgLoader, "rotationY", 0.0f, 360f);
         animation.setDuration(3600);
@@ -114,8 +142,9 @@ public class CustomVideoView extends LinearLayout implements MediaPlayer.OnError
     }
 
     public void showTitle() {
+
         tvTitle.setText(mCamera.name);
-        titleHolder.setVisibility(VISIBLE);
+        titleHolder.setVisibility(isStaticImage ? INVISIBLE : VISIBLE);
     }
 
     private void stopAnimation() {

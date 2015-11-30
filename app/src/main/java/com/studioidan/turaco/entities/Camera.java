@@ -13,10 +13,14 @@ public class Camera implements Serializable {
     public String staticImageUrl;
 
     public Camera(String name, String url) {
+        this(name, url, "");
+    }
+
+    public Camera(String name, String url, String staticImageUrl) {
         this.name = name;
         this.videoUrl = url;
         this.imageUrl = "";
-        staticImageUrl = "";
+        this.staticImageUrl = staticImageUrl;
     }
 
     public Camera(Camera other) {

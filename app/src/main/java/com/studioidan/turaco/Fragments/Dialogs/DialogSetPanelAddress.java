@@ -27,7 +27,7 @@ public class DialogSetPanelAddress extends DialogFragment implements View.OnClic
 
     ///Views
     private Spinner spinner;
-    private Button btnSave;
+    private Button btnSave, btnViewPushLogs;
     EditText etIp, etPanel;
     SeekBar sb;
     TextView tvInterval;
@@ -43,6 +43,7 @@ public class DialogSetPanelAddress extends DialogFragment implements View.OnClic
         View v = inflater.inflate(R.layout.dialog_set_panel_address, container);
         spinner = (Spinner) v.findViewById(R.id.spPanelAddress);
         btnSave = (Button) v.findViewById(R.id.btnPanelAddressSave);
+        btnViewPushLogs = (Button) v.findViewById(R.id.btnPanelViewLogs);
         etIp = (EditText) v.findViewById(R.id.etIp);
         etPanel = (EditText) v.findViewById(R.id.etPanel);
         sb = (SeekBar) v.findViewById(R.id.seekBar);
@@ -57,6 +58,7 @@ public class DialogSetPanelAddress extends DialogFragment implements View.OnClic
         super.onViewCreated(view, savedInstanceState);
         setadapter();
         btnSave.setOnClickListener(this);
+        btnViewPushLogs.setOnClickListener(this);
         tvInterval.setText("" + DataStore.getInstance().getApiInterval());
         etIp.setText(DataStore.getInstance().getBaseUrl());
         etPanel.setText(DataStore.getInstance().getPanel());
@@ -118,6 +120,9 @@ public class DialogSetPanelAddress extends DialogFragment implements View.OnClic
 
             case R.id.toggleButton:
                 DataStore.getInstance().setIsSirenOn(toggleButton.isChecked());
+                break;
+            case R.id.btnPanelViewLogs:
+
                 break;
         }
 

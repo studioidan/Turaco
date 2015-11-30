@@ -83,6 +83,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         btnArmStay.setOnClickListener(this);
         btnDisarm.setOnClickListener(this);
         loadPanelStatus();
+        registerReceiver();
         return mView;
     }
 
@@ -98,12 +99,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         intentFilter.addAction(ACTION_DISARM);
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, intentFilter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        registerReceiver();
     }
 
     private void loadPanelStatus() {
@@ -242,13 +237,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     public void onStop() {
         super.onStop();
         isShown = false;
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         isShown = false;
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -281,4 +276,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         */
         }
     };
+
+
 }

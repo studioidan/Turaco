@@ -65,7 +65,6 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         btnClose.setOnClickListener(this);
 
         mProgess = new ProgressDialog(this);
-
     }
 
     private void startVideo() {
@@ -108,7 +107,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
-        mVideoView.getmView().pause();
+        mVideoView.getmVideoView().pause();
     }
 
     @Override

@@ -14,4 +14,5 @@ public class Keys {
     public static String INTERVAL ="interval";
     public static String IS_SIREN_ON ="isSirenOn";
     public static String REG_ID = "regId";
+    public static String PUSH_LOGS = "push_logs";
 }

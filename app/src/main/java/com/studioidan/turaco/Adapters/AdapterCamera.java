@@ -84,6 +84,15 @@ public class AdapterCamera extends BaseAdapter {
 
         ImageView imgIsPlayingIndicator = (ImageView) v.findViewById(R.id.im_curreuntplaying);
         imgIsPlayingIndicator.setVisibility(playingItem == i ? View.VISIBLE : View.INVISIBLE);
+
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null)
+                    callback.onItemClick(item, i);
+            }
+        });
         return v;
     }
 
@@ -94,5 +103,7 @@ public class AdapterCamera extends BaseAdapter {
 
     public interface CameraItemCallback {
         void onStaticImageClick(Camera camera, int position);
+
+        void onItemClick(Camera camera, int position);
     }
 }

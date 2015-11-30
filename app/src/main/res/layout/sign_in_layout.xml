@@ -138,16 +138,17 @@
 
                 <Button
                     android:id="@+id/btn_sign_in_layout"
+                    style="@style/RbButton.Inverse.Rounded.Blue"
                     android:layout_width="@dimen/XL1"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginBottom="@dimen/S20"
-                    android:text="Login"
-                    android:textColor="#FFFEFE"
-                    style="@style/RbButton.Inverse.Rounded.Blue"
+                    android:enabled="false"
                     android:padding="@dimen/S6"
+                    android:text="Loading..."
+                    android:textColor="#FFFEFE"
                     android:textSize="@dimen/SP11"
                     android:textStyle="bold"
                     android:typeface="sans" />
