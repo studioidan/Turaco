@@ -14,4 +14,5 @@ public class Site {
     public int siteId;
     public ArrayList<Camera> Cameras;
     public ArrayList<Panel> Panels;
+
 }
