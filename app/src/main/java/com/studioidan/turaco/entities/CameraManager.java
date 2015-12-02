@@ -56,7 +56,7 @@ public class CameraManager {
         //Camera cameraTrg = new Camera(cameraSrc);
         /*replace the old one*/
         //ds.getCameras().set(targetPosition, cameraTrg);
-        ds.getCameras().get(targetPosition).videoUrl = cameraSrc.videoUrl;
+        ds.getCameras().get(targetPosition).setVideoLink(cameraSrc.getVideoLink());
 
         return saveCameras();
     }

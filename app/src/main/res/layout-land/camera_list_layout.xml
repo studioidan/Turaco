@@ -10,20 +10,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.studioidan.turaco.CustomView.CustomVideoView
+        <com.studioidan.turaco.customView.CustomVideoView
             android:id="@+id/videoView1"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:layout_weight="1"></com.studioidan.turaco.CustomView.CustomVideoView>
+            android:layout_weight="1"></com.studioidan.turaco.customView.CustomVideoView>
 
-        <com.studioidan.turaco.CustomView.CustomVideoView
+        <com.studioidan.turaco.customView.CustomVideoView
             android:id="@+id/videoView2"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
 
-            android:layout_weight="1"></com.studioidan.turaco.CustomView.CustomVideoView>
+            android:layout_weight="1"></com.studioidan.turaco.customView.CustomVideoView>
     </LinearLayout>
 
     <ListView

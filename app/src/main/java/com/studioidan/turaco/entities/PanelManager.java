@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.studioidan.popapplibrary.HttpAgent;
+import com.studioidan.turaco.data.UserManager;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
 
@@ -27,18 +28,19 @@ public class PanelManager {
 
     static private DataStore ds = DataStore.getInstance();
 
-    public static void getPanelStatus(Context con, final Factory.GenericCallback callback) {
-        new HttpAgent(ds.getBaseUrl() + ":8080/api/PanelsStatus/" + ds.getPanel(), "panelStatus", null, new HttpAgent.IRequestCallback() {
+    public static void getCurrentPanelStatus(Context con, final Factory.GenericCallback callback) {
+        Panel panel = UserManager.getInstance().getCurrentPanel();
+
+        new HttpAgent(ds.getBaseUrl() + ":8080/api/PanelsStatus/" + panel.getPanelId(), "panelStatus", null, new HttpAgent.IRequestCallback() {
             @Override
-            public void onRequestStart(String mMethodName) {
-            }
+            public void onRequestStart(String mMethodName) {}
 
             @Override
             public void onRequestEnd(String mMethodName, String e, String response) {
                 if (e == null) {
                     try {
-                        Panel mPanel = new Gson().fromJson(response, Panel.class);
-                        callback.onDone(true, mPanel);
+                        PanelStatus ps = new Gson().fromJson(response, PanelStatus.class);
+                        callback.onDone(true, ps);
                     } catch (Exception ex) {
                         callback.onDone(false, ex.getMessage());
                     }
@@ -57,7 +59,7 @@ public class PanelManager {
         params.add(new BasicNameValuePair("ttl", "0"));
         params.add(new BasicNameValuePair("user", ds.getUserName()));
 
-        new HttpAgent(ds.getBaseUrl() + ":8080/api/panelCommand/" + ds.getPanel(), "panelCommand", params, new HttpAgent.IRequestCallback() {
+        new HttpAgent(ds.getBaseUrl() + ":8080/api/panelCommand/" + UserManager.getInstance().getCurrentPanel().getPanelId(), "panelCommand", params, new HttpAgent.IRequestCallback() {
             @Override
             public void onRequestStart(String mMethodName) {
             }

@@ -93,8 +93,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:text="New ToggleButton"
-                android:textOff="Siren Off"
-                android:textOn="Siren On" />
+                android:textOff="Use Local Data"
+                android:textOn="Use Server Data" />
 
             <Button
                 android:id="@+id/btnPanelViewLogs"

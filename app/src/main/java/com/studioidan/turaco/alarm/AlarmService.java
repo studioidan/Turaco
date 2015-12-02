@@ -9,8 +9,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.studioidan.turaco.App;
-import com.studioidan.turaco.entities.Panel;
 import com.studioidan.turaco.entities.PanelManager;
+import com.studioidan.turaco.entities.PanelStatus;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
 
@@ -47,22 +47,22 @@ public class AlarmService extends Service {
 
             LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(new Intent(ACTION_START_REQUEST));
 
-            PanelManager.getPanelStatus(App.getContext(), new Factory.GenericCallback() {
+            PanelManager.getCurrentPanelStatus(App.getContext(), new Factory.GenericCallback() {
                 @Override
                 public void onDone(boolean success, Object result) {
                     if (success) {
-                        Panel panel = (Panel) result;
-                        LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(new Intent(ACTION_PANEL).putExtra(EXTRA_PANEL, panel));
+                        PanelStatus ps = (PanelStatus) result;
+                        LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(new Intent(ACTION_PANEL).putExtra(EXTRA_PANEL, ps));
 
                         //Alarm staff
                         //Log.d(TAG, "Panel Status call ended, alarm: " + panel.alarm);
-                        if (!AlarmActivity.isAlarmShowing && panel.alarm) {
+                        if (!AlarmActivity.isAlarmShowing && ps.alarm) {
                             counter = 0;
                             Log.d(TAG, "Sending alert");
                             handler.removeCallbacks(runnable);
                             App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_ALERT));
                         }
-                        if (AlarmActivity.isAlarmShowing && panel.arm == PanelManager.PANEL_STATUS_DISARM) {
+                        if (AlarmActivity.isAlarmShowing && ps.arm == PanelManager.PANEL_STATUS_DISARM) {
                             handler.removeCallbacks(runnable);
                             App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_DISALERT));
                         }

@@ -16,8 +16,8 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.studioidan.turaco.App;
-import com.studioidan.turaco.CustomView.CustomVideoView;
-import com.studioidan.turaco.Fragments.MainFragment;
+import com.studioidan.turaco.customView.CustomVideoView;
+import com.studioidan.turaco.fragments.MainFragment;
 import com.studioidan.turaco.R;
 import com.studioidan.turaco.entities.PanelManager;
 import com.studioidan.turaco.singeltones.DataStore;
@@ -50,10 +50,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     }
 
     private void startSiren() {
-        if (DataStore.getInstance().getIsSirenOn()) {
-            mp = MediaPlayer.create(this, R.raw.siren);
-            mp.start();
-        }
+
     }
 
     private void init() {
@@ -135,7 +132,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AlarmActivity.this);
-                builder.setTitle("Panel status");
+                builder.setTitle("Panel");
                 builder.setMessage("Turaco security system remotely disarmed!");
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

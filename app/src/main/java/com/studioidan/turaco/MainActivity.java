@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.studioidan.turaco.Base.BaseFragment;
-import com.studioidan.turaco.CustomView.HeaderBar;
-import com.studioidan.turaco.Fragments.SignInFragment;
+import com.studioidan.turaco.base.BaseFragment;
+import com.studioidan.turaco.customView.HeaderBar;
+import com.studioidan.turaco.fragments.SignInFragment;
 
 
 public class MainActivity extends FragmentActivity {

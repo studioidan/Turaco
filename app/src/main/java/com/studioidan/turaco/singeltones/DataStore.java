@@ -16,13 +16,14 @@ import java.util.List;
 public class DataStore {
 
     private static DataStore instance = null;
+    /* new model */
 
     private String baseUrl;
     private String panel;
     private String userName;
     private String password;
     private int apiInterval;
-    private boolean isSirenOn;
+    private boolean isDataSourceLocal;
     private ArrayList<Camera> cameras;
 
     private ArrayList<PushLog> logs;
@@ -43,14 +44,13 @@ public class DataStore {
         return CPM.putObject(Keys.CAMERAS, cameras, App.getContext());
     }
 
-
-    public boolean getIsSirenOn() {
-        return isSirenOn;
+    public boolean getIsDataSourceLocal() {
+        return isDataSourceLocal;
     }
 
-    public void setIsSirenOn(boolean isSirenOn) {
-        this.isSirenOn = isSirenOn;
-        CPM.putBoolean(Keys.IS_SIREN_ON, isSirenOn, App.getContext());
+    public void setIsDataSourceLocal(boolean isLocalData) {
+        this.isDataSourceLocal = isLocalData;
+        CPM.putBoolean(Keys.IS_LOCAL_DATA, isLocalData, App.getContext());
     }
 
     public int getApiInterval() {
@@ -123,7 +123,7 @@ public class DataStore {
         logs = (ArrayList<PushLog>) CPM.getArrayObject(Keys.PUSH_LOGS, new TypeToken<List<PushLog>>() {
         }.getType(), App.getContext());
 
-        isSirenOn = CPM.getBoolean(Keys.IS_SIREN_ON, false, App.getContext());
+        isDataSourceLocal = CPM.getBoolean(Keys.IS_LOCAL_DATA, false, App.getContext());
 
         cameras = (ArrayList<Camera>) CPM.getArrayObject(Keys.CAMERAS, new TypeToken<List<Camera>>() {
         }.getType(), App.getContext());

@@ -45,7 +45,7 @@
 
         </RelativeLayout>
 
-        <com.studioidan.turaco.CustomView.CustomVideoView
+        <com.studioidan.turaco.customView.CustomVideoView
             android:id="@+id/cvvAlarm"
             android:layout_width="match_parent"
             android:layout_height="280dip"

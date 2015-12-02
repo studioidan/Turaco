@@ -3,6 +3,7 @@ package com.studioidan.turaco;
 import android.app.Application;
 import android.content.Context;
 
+import com.studioidan.turaco.data.UserManager;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
@@ -26,6 +27,7 @@ public class App extends Application {
     private void init() {
         App.context = getApplicationContext();
         DataStore.getInstance();
+        UserManager.getInstance();
     }
 
     public static Context getContext() {

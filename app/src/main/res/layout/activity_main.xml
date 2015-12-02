@@ -4,7 +4,7 @@
 
     android:orientation="vertical">
 
-    <com.studioidan.turaco.CustomView.HeaderBar
+    <com.studioidan.turaco.customView.HeaderBar
         android:layout_width="fill_parent"
         android:id="@+id/header_bar_main_activity"
         android:layout_height="wrap_content"/>
