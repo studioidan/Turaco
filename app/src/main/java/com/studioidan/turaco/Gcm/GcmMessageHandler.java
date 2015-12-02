@@ -1,6 +1,5 @@
 package com.studioidan.turaco.Gcm;
 
-import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -24,6 +23,7 @@ import com.studioidan.turaco.alarm.AlarmReceiver;
 import com.studioidan.turaco.entities.Panel;
 import com.studioidan.turaco.entities.PushLog;
 import com.studioidan.turaco.singeltones.DataStore;
+import com.studioidan.turaco.singeltones.TLog;
 
 import org.json.JSONObject;
 
@@ -37,15 +37,20 @@ public class GcmMessageHandler extends GcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        boolean isLogSaved = false;
+        String date = DateFormat.format("dd/MM/yyyy HH:mm:ss ", new Date().getTime()).toString();
+        String[] opCodes = {"Test", "ARM", "ARM STAY", "DISARM","ALARM"};
         try {
             String strJson = data.getString("message");
-            JSONObject message = new JSONObject(strJson).getJSONObject("message");
+            JSONObject message = new JSONObject(strJson);
+
             int opCode = message.getInt("pushOpCode");
             /*store this pushLog */
-            String date = DateFormat.format("dd/MM/yyyy ", new Date().getTime()).toString();
-            PushLog pushLog = new PushLog(date, opCode);
+            PushLog pushLog = new PushLog(date, "" + opCode + " (" + opCodes[opCode] + ")");
             DataStore.getInstance().getLogs().add(pushLog);
             DataStore.getInstance().setLogs(DataStore.getInstance().getLogs());
+
+            isLogSaved = true;
 
             if (opCode == 0) {
                 createNotification("got test message", "click to open");
@@ -74,7 +79,8 @@ public class GcmMessageHandler extends GcmListenerService {
             Log.d(TAG, "got push code:" + opCode);
 
             if (opCode != 4) {
-                if (!App.getContext().getPackageName().equalsIgnoreCase(((ActivityManager) App.getContext().getSystemService(Context.ACTIVITY_SERVICE)).getRunningTasks(1).get(0).topActivity.getPackageName())) {
+                // if (!App.getContext().getPackageName().equalsIgnoreCase(((ActivityManager) App.getContext().getSystemService(Context.ACTIVITY_SERVICE)).getRunningTasks(1).get(0).topActivity.getPackageName())) {
+                if (!MainFragment.isShown) {
                     String mode = "arm";
                     if (opCode == 2) mode = "arm stayed";
                     if (opCode == 3) mode = "dis armed";
@@ -84,7 +90,13 @@ public class GcmMessageHandler extends GcmListenerService {
             }
 
         } catch (Exception ex) {
-            Log.e(TAG, "push parsing failed! - " + ex.getMessage());
+            TLog.e(TAG, "push parsing failed! - " + ex.getMessage());
+            if (!isLogSaved) {
+                PushLog pushLog = new PushLog(date, "Parse error: \n" + ex.getMessage());
+                DataStore.getInstance().getLogs().add(pushLog);
+                DataStore.getInstance().setLogs(DataStore.getInstance().getLogs());
+            }
+
             createNotification("got push", "Click here to see");
         }
     }

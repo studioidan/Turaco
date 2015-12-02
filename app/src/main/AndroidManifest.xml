@@ -45,8 +45,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.studioidan.turaco.CameraBroadCastReceiver"></receiver>
-
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="action.alert" />
@@ -56,7 +54,7 @@
         <service android:name=".alarm.AlarmService"></service>
 
         <service
-            android:name=".Gcm.GcmMessageHandler"
+            android:name="com.studioidan.turaco.Gcm.GcmMessageHandler"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />

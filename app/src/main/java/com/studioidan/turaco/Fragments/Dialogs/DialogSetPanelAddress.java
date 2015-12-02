@@ -122,7 +122,9 @@ public class DialogSetPanelAddress extends DialogFragment implements View.OnClic
                 DataStore.getInstance().setIsSirenOn(toggleButton.isChecked());
                 break;
             case R.id.btnPanelViewLogs:
-
+                DialogPushLog dialogPushLog = new DialogPushLog();
+                dialogPushLog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                dialogPushLog.show(getChildFragmentManager(), "TAG");
                 break;
         }
 

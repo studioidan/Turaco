@@ -35,6 +35,7 @@ public class DataStore {
 
     public void setLogs(ArrayList<PushLog> logs) {
         this.logs = logs;
+        CPM.putObject(Keys.PUSH_LOGS, getLogs(), App.getContext());
     }
 
     public boolean setCameras(ArrayList<Camera> cameras) {
@@ -112,8 +113,8 @@ public class DataStore {
 
     private DataStore() {
 
-        baseUrl = CPM.getString(Keys.BASE_URL, "http://192.168.0.98", App.getContext());
-        panel = CPM.getString(Keys.PANEL, "20", App.getContext());
+        baseUrl = CPM.getString(Keys.BASE_URL, "http://69.64.63.136", App.getContext());
+        panel = CPM.getString(Keys.PANEL, "8", App.getContext());
 
         userName = CPM.getString(Keys.USERNAME, "e", App.getContext());
         password = CPM.getString(Keys.PASSWORD, "e", App.getContext());
