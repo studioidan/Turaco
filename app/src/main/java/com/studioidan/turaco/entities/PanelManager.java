@@ -33,7 +33,8 @@ public class PanelManager {
 
         new HttpAgent(ds.getBaseUrl() + ":8080/api/PanelsStatus/" + panel.getPanelId(), "panelStatus", null, new HttpAgent.IRequestCallback() {
             @Override
-            public void onRequestStart(String mMethodName) {}
+            public void onRequestStart(String mMethodName) {
+            }
 
             @Override
             public void onRequestEnd(String mMethodName, String e, String response) {
@@ -50,8 +51,13 @@ public class PanelManager {
         }).execute("get");
     }
 
+    //make panel command to current panel
     public static void makePanelCommand(final Context con, final String command, final Factory.GenericCallback callback) {
-        //http://69.64.63.136:8080/api/panelCommand/8?command=arm&parameter=a&ttl=0&user=e
+        String panelId = UserManager.getInstance().getCurrentPanel().getPanelId();
+        makePanelCommand(con, panelId, command, callback);
+    }
+
+    public static void makePanelCommand(final Context con, String panelId, final String command, final Factory.GenericCallback callback) {
         //http://69.64.63.136:8080/api/panelCommand/8?command=disarm&parameter=a&ttl=0&user=e
         ArrayList<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("command", command));
@@ -59,7 +65,7 @@ public class PanelManager {
         params.add(new BasicNameValuePair("ttl", "0"));
         params.add(new BasicNameValuePair("user", ds.getUserName()));
 
-        new HttpAgent(ds.getBaseUrl() + ":8080/api/panelCommand/" + UserManager.getInstance().getCurrentPanel().getPanelId(), "panelCommand", params, new HttpAgent.IRequestCallback() {
+        new HttpAgent(ds.getBaseUrl() + ":8080/api/panelCommand/" + panelId, "panelCommand", params, new HttpAgent.IRequestCallback() {
             @Override
             public void onRequestStart(String mMethodName) {
             }
@@ -81,4 +87,25 @@ public class PanelManager {
         }).execute("get");
     }
 
+    //http://69.64.63.136:8080/api/PanelCommand/GetZonesStatus?panelID=9
+    public static void getZones(final Context con, String panelId, final Factory.GenericCallback callback) {
+        ArrayList<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("panelID", panelId));
+        new HttpAgent(ds.getBaseUrl() + ":8080/api/PanelCommand/GetZonesStatus", "panelCommand", params, new HttpAgent.IRequestCallback() {
+            @Override
+            public void onRequestStart(String mMethodName) {
+            }
+
+            @Override
+            public void onRequestEnd(String mMethodName, String e, String response) {
+                if (e == null) {
+
+                } else {
+                    showOkDialog(con, "Connection Error", "Please try again later", "Ok", null);
+                    callback.onDone(false, null);
+                }
+            }
+        }).execute("get");
+
+    }
 }

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
 
-    <color name="background_dark_blue">#1e3c7d</color>
+    <color name="primary">#1e3c7d</color>
+    <color name="primaryDark">#071a45</color>
+    <color name="primary_alpha">#c51e3c7d</color>
     <color name="white">#ffffff</color>
+    <color name="lightGray">#dedede</color>
     <color name="textColorDark">#4D4D4D</color>
-
+    <color name="fog">#cfcfcf</color>
+    <color name="moon">#747474</color>
+    <color name="selectedRow">#d5dbff</color>
 
     <color name="redColor">#E30613</color>
-    <color name="orangColor">#EA5B0C</color>
+    <color name="orangeColor">#EA5B0C</color>
     <color name="greenColor">#009640</color>
 </resources>

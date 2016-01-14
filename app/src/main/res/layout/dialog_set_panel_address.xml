@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp">
 
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvSelectIpTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -53,52 +53,42 @@
                 android:ems="10"
                 android:hint="Your ip here..." />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Api call interval (sec):" />
-
-            <SeekBar
-                android:id="@+id/seekBar"
+            <LinearLayout
+                android:id="@+id/localData"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="30" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tvInterval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":" />
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Panel number" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Panel number" />
+                <EditText
+                    android:id="@+id/etPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:inputType="number" />
 
-            <EditText
-                android:id="@+id/etPanel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:ems="10"
-                android:inputType="number" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:text="New ToggleButton"
-                android:textOff="Use Local Data"
-                android:textOn="Use Server Data" />
+                <ToggleButton
+                    android:id="@+id/toggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:text="New ToggleButton"
+                    android:textOff="Use Local Data"
+                    android:textOn="Use Server Data" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnPanelViewLogs"
-                style="@style/RbButton.Inverse.LightBlue"
+                style="@style/btnStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -107,8 +97,35 @@
                 android:textSize="20sp" />
 
             <Button
+                android:id="@+id/btnMpv"
+                style="@style/btnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text="Multi Panel View"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnUnregisterPush"
+                style="@style/btnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text="Unregister Push"
+                android:textSize="20sp" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Show MPV page" />
+
+            <Button
                 android:id="@+id/btnPanelAddressSave"
-                style="@style/RbButton.Inverse.LightBlue"
+                style="@style/btnStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

@@ -10,8 +10,8 @@ public class Keys {
     public static String USERNAME ="username";
     public static String PASSWORD ="password";
     public static String CAMERAS ="cameras";
-    public static String INTERVAL ="interval";
     public static String IS_LOCAL_DATA ="isSirenOn";
     public static String REG_ID = "regId";
     public static String PUSH_LOGS = "push_logs";
+    public static String IS_MPV_VISIBLE = "isMpVVisible";
 }

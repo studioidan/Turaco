@@ -3,19 +3,20 @@ package com.studioidan.turaco;
 import android.app.Application;
 import android.content.Context;
 
+import com.crashlytics.android.Crashlytics;
 import com.studioidan.turaco.data.UserManager;
 import com.studioidan.turaco.singeltones.DataStore;
-import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
+import pl.tajchert.nammu.Nammu;
 
 /**
  * Created by PopApp_laptop on 26/10/2015.
  */
 public class App extends Application {
 
-    public String BaseUrl = "";
     private static Context context;
-    public  static final String VERSION = "1.7";
+    public static final String VERSION = "3.2";
 
     @Override
     public void onCreate() {
@@ -28,6 +29,7 @@ public class App extends Application {
         App.context = getApplicationContext();
         DataStore.getInstance();
         UserManager.getInstance();
+        Nammu.init(getApplicationContext());
     }
 
     public static Context getContext() {

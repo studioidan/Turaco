@@ -3,19 +3,66 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-       <!-- <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>  -->
+        <!-- <item name="colorPrimary">@color/colorPrimary</item>
+         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+         <item name="colorAccent">@color/colorAccent</item>  -->
+        <item name="android:buttonStyle">@style/btnStyle</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="fullScreenStyle" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="iconActionStyle">
+        <item name="android:textSize">@dimen/SP18</item>
+        <item name="android:padding">@dimen/S4</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/textColorDark</item>
+    </style>
+
+    <style name="btnStyle">
+        <item name="android:layout_height">@dimen/M15</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/S5</item>
+        <item name="android:layout_margin">@dimen/S2</item>
+        <item name="android:textSize">@dimen/SP13</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:background">@drawable/selector_btn_regular</item>
+    </style>
+
+    <style name="etStyle">
+        <item name="android:layout_height">@dimen/M15</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">@dimen/S5</item>
+        <item name="android:layout_margin">@dimen/S2</item>
+        <item name="android:textSize">@dimen/SP10</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:background">@drawable/bg_et_regular</item>
+    </style>
+
+    <declare-styleable name="IconView">
+        <attr name="icon_code" format="string"></attr>
+    </declare-styleable>
 
     <declare-styleable name="PicGallery">
         <attr name="android:galleryItemBackground" />
     </declare-styleable>
+
+
 </resources>

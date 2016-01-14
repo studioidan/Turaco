@@ -12,12 +12,31 @@ import java.util.ArrayList;
  */
 public class Site implements Serializable {
     @SerializedName("SiteId")
-    public int siteId;
+    private int siteId;
+
     public ArrayList<Camera> Cameras;
-    public ArrayList<Panel> Panels;
+    @SerializedName("Panels")
+    private ArrayList<Panel> panels;
+
+    public ArrayList<Panel> getPanels() {
+        if (panels == null) {
+            panels = new ArrayList<>();
+        }
+        return panels;
+    }
+
+    public ArrayList<Camera> getCameras() {
+        if (Cameras == null)
+            Cameras = new ArrayList<>();
+        return Cameras;
+    }
+
+    public String getSiteId() {
+        return "" + siteId;
+    }
 
     public Site() {
         Cameras = new ArrayList<>();
-        Panels = new ArrayList<>();
+        panels = new ArrayList<>();
     }
 }

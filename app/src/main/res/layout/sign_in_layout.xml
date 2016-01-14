@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#1e3c7d"
+    android:background="@color/primary"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -76,30 +76,28 @@
 
                 <EditText
                     android:id="@+id/ed_user_name_sign_in_layout"
+                    style="@style/etStyle"
                     android:layout_width="@dimen/XL13"
-                    android:layout_height="@dimen/M10"
                     android:layout_above="@+id/ed_user_pass_sign_in_layout"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/S18"
-                    android:background="@drawable/edittext_bg"
                     android:drawableLeft="@drawable/ic_user_login"
+                    android:drawablePadding="@dimen/S3"
                     android:ems="10"
                     android:hint="Name"
+                    android:textSize="@dimen/SP9"
                     android:inputType="textPersonName"
                     android:padding="@dimen/S10"
-                    android:textColor="#A4A4A4"
-                    android:textSize="@dimen/SP9"
-                    android:textStyle="normal"
                     android:typeface="sans" />
 
                 <EditText
+                    style="@style/etStyle"
                     android:id="@+id/ed_user_pass_sign_in_layout"
                     android:layout_width="@dimen/XL13"
-                    android:layout_height="@dimen/M10"
                     android:layout_above="@+id/ll_remmeber_container"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/edittext_bg"
                     android:drawableLeft="@drawable/ic_password_login"
+                    android:drawablePadding="@dimen/S3"
                     android:ems="10"
                     android:hint="Password"
                     android:inputType="textPassword"
@@ -138,19 +136,14 @@
 
                 <Button
                     android:id="@+id/btn_sign_in_layout"
-                    style="@style/RbButton.Inverse.Rounded.Blue"
-                    android:layout_width="@dimen/XL1"
-                    android:layout_height="wrap_content"
+                    style="@style/btnStyle"
+                    android:layout_width="@dimen/XL13"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal|bottom"
-                    android:layout_marginBottom="@dimen/S20"
+                    android:layout_marginBottom="@dimen/M10"
                     android:enabled="false"
-                    android:padding="@dimen/S6"
                     android:text="Loading..."
-                    android:textColor="#FFFEFE"
-                    android:textSize="@dimen/SP11"
-                    android:textStyle="bold"
                     android:typeface="sans" />
             </LinearLayout>
         </LinearLayout>

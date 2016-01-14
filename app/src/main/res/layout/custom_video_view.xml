@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -44,10 +45,12 @@
     <LinearLayout
         android:id="@+id/titleHolder"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/M10"
+
         android:background="#871a1a1a"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvVideoTitle"
@@ -67,8 +70,32 @@
             android:id="@+id/imgStaticImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible"
-            />
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/llActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#87ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:alpha="0.5"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:padding="@dimen/S2">
+
+
+            <com.studioidan.turaco.customView.IconView
+                android:id="@+id/iconZoom"
+                style="@style/iconActionStyle"
+                app:icon_code="\uf00e" />
+
+            <com.studioidan.turaco.customView.IconView
+                android:id="@+id/iconSave"
+                style="@style/iconActionStyle"
+                app:icon_code="\uf0c7" />
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

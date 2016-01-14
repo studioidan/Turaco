@@ -1,24 +1,25 @@
 package com.studioidan.turaco.alarm;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.studioidan.turaco.App;
-import com.studioidan.turaco.customView.CustomVideoView;
-import com.studioidan.turaco.fragments.MainFragment;
 import com.studioidan.turaco.R;
+import com.studioidan.turaco.customView.CustomVideoView;
+import com.studioidan.turaco.data.UserManager;
 import com.studioidan.turaco.entities.PanelManager;
 import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
@@ -30,13 +31,18 @@ import com.studioidan.turaco.singeltones.Factory;
 public class AlarmActivity extends Activity implements View.OnClickListener {
     public static final String ACTION_DISALERT = "action.disalert";
 
+    //Views
     CustomVideoView mVideoView;
     Button btnCloseAndDisarm, btnClose;
+    ProgressDialog mProgess;
+    private TextView tvSystemRemotlyDisarmed;
+    AlertDialog alert;
+
+    //Data
     public static boolean isAlarmShowing = false;
 
-    ProgressDialog mProgess;
+
     MediaPlayer mp;
-    AlertDialog alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +51,19 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.panel_alarm_layout);
 
         init();
-        startVideo();
-        startSiren();
+        if (UserManager.getInstance().getActiveSite().getCameras().size() > 0) {
+            startVideo();
+        } else {
+            Toast.makeText(AlarmActivity.this, "There was no camera to show", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void startSiren() {
-
-    }
 
     private void init() {
         mVideoView = (CustomVideoView) findViewById(R.id.cvvAlarm);
         btnCloseAndDisarm = (Button) findViewById(R.id.btnAlarmCloseAndDisarm);
         btnClose = (Button) findViewById(R.id.btnAlarmClose);
+        tvSystemRemotlyDisarmed = (TextView) findViewById(R.id.tvPanelremotlyDisarmed);
 
         btnCloseAndDisarm.setOnClickListener(this);
         btnClose.setOnClickListener(this);
@@ -86,7 +93,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btnAlarmClose:
-                this.finish();
+                AlarmActivity.this.finish();
                 break;
         }
     }
@@ -119,18 +126,23 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         super.onStop();
         isAlarmShowing = false;
         unregisterReceiver(receiver);
-
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, Intent intent) {
             if (ACTION_DISALERT.equals(intent.getAction())) {
-                if (MainFragment.isShown) {
+
+                /*if (MainFragment.isShown) {
                     AlarmActivity.this.finish();
                     return;
-                }
+                }*/
 
+                tvSystemRemotlyDisarmed.setVisibility(View.VISIBLE);
+                btnCloseAndDisarm.setClickable(false);
+                btnCloseAndDisarm.setAlpha(0.5f);
+
+                /*
                 AlertDialog.Builder builder = new AlertDialog.Builder(AlarmActivity.this);
                 builder.setTitle("Panel");
                 builder.setMessage("Turaco security system remotely disarmed!");
@@ -145,6 +157,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                     alert = builder.create();
                     alert.show();
                 }
+                */
             }
         }
     };

@@ -11,7 +11,6 @@ import android.util.Log;
 import com.studioidan.turaco.App;
 import com.studioidan.turaco.entities.PanelManager;
 import com.studioidan.turaco.entities.PanelStatus;
-import com.studioidan.turaco.singeltones.DataStore;
 import com.studioidan.turaco.singeltones.Factory;
 
 /**
@@ -67,7 +66,7 @@ public class AlarmService extends Service {
                             App.getContext().sendBroadcast(new Intent(AlarmReceiver.ACTION_DISALERT));
                         }
                     }
-                    handler.postDelayed(runnable, DataStore.getInstance().getApiInterval() * 1000);
+                    handler.postDelayed(runnable, 3 * 1000);
                 }
             });
         }

@@ -19,7 +19,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="@dimen/S2">
+            android:padding="@dimen/S2"
+            android:paddingBottom="0dp">
 
             <ImageView
                 android:id="@+id/imgDisarm"
@@ -50,7 +51,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="@dimen/S2">
+            android:padding="@dimen/S2"
+            android:paddingBottom="0dp">
 
             <ImageView
                 android:id="@+id/imgArmStay"
@@ -83,7 +85,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="@dimen/S2">
+            android:padding="@dimen/S2"
+            android:paddingBottom="0dp">
 
 
             <ImageView

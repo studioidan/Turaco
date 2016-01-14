@@ -3,6 +3,7 @@ package com.studioidan.turaco.singeltones;
 import com.google.gson.reflect.TypeToken;
 import com.studioidan.popapplibrary.CPM;
 import com.studioidan.turaco.App;
+import com.studioidan.turaco.data.UserManager;
 import com.studioidan.turaco.entities.Camera;
 import com.studioidan.turaco.entities.Keys;
 import com.studioidan.turaco.entities.PushLog;
@@ -22,11 +23,11 @@ public class DataStore {
     private String panel;
     private String userName;
     private String password;
-    private int apiInterval;
-    private boolean isDataSourceLocal;
+    private boolean isDataSourceServer;
+    private boolean isMPVVisible;
     private ArrayList<Camera> cameras;
-
     private ArrayList<PushLog> logs;
+
 
     public ArrayList<PushLog> getLogs() {
         if (logs == null)
@@ -44,28 +45,22 @@ public class DataStore {
         return CPM.putObject(Keys.CAMERAS, cameras, App.getContext());
     }
 
-    public boolean getIsDataSourceLocal() {
-        return isDataSourceLocal;
+    public boolean getIsDataSourceServer() {
+        return isDataSourceServer;
     }
 
-    public void setIsDataSourceLocal(boolean isLocalData) {
-        this.isDataSourceLocal = isLocalData;
-        CPM.putBoolean(Keys.IS_LOCAL_DATA, isLocalData, App.getContext());
-    }
-
-    public int getApiInterval() {
-        return apiInterval;
-    }
-
-    public void setApiInterval(int apiInterval) {
-        this.apiInterval = apiInterval;
-        CPM.putInt(Keys.INTERVAL, apiInterval, App.getContext());
+    public void setIsDataSourceServer(boolean isServerData) {
+        this.isDataSourceServer = isServerData;
+        CPM.putBoolean(Keys.IS_LOCAL_DATA, isServerData, App.getContext());
     }
 
     public ArrayList<Camera> getCameras() {
+        return UserManager.getInstance().getActiveSite().getCameras();
+        /*
         if (cameras == null)
             loadDefaultCameras();
         return cameras;
+        */
     }
 
     public String getUserName() {
@@ -111,19 +106,29 @@ public class DataStore {
         return instance;
     }
 
+    public boolean getIsMPVVisible() {
+        return isMPVVisible;
+    }
+
+    public void setIsMPVVisible(boolean isMPVVisible) {
+        this.isMPVVisible = isMPVVisible;
+        CPM.putBoolean(Keys.IS_MPV_VISIBLE, isMPVVisible, App.getContext());
+    }
+
     private DataStore() {
 
-        baseUrl = CPM.getString(Keys.BASE_URL, "http://69.64.63.136", App.getContext());
+        baseUrl = CPM.getString(Keys.BASE_URL, "http://62.90.58.185", App.getContext());
         panel = CPM.getString(Keys.PANEL, "8", App.getContext());
 
         userName = CPM.getString(Keys.USERNAME, "e", App.getContext());
         password = CPM.getString(Keys.PASSWORD, "e", App.getContext());
 
-        apiInterval = CPM.getInt(Keys.INTERVAL, 4, App.getContext());
+        isMPVVisible = CPM.getBoolean(Keys.IS_MPV_VISIBLE, false, App.getContext());
+
         logs = (ArrayList<PushLog>) CPM.getArrayObject(Keys.PUSH_LOGS, new TypeToken<List<PushLog>>() {
         }.getType(), App.getContext());
 
-        isDataSourceLocal = CPM.getBoolean(Keys.IS_LOCAL_DATA, false, App.getContext());
+        isDataSourceServer = CPM.getBoolean(Keys.IS_LOCAL_DATA, true, App.getContext());
 
         cameras = (ArrayList<Camera>) CPM.getArrayObject(Keys.CAMERAS, new TypeToken<List<Camera>>() {
         }.getType(), App.getContext());

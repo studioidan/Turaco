@@ -62,8 +62,8 @@
             android:weightSum="2">
 
             <Button
-                style="@style/RbButton.Plastic"
                 android:id="@+id/btnAlarmCloseAndDisarm"
+                style="@style/RbButton.Plastic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
@@ -71,13 +71,32 @@
                 android:text="@string/close_disarm" />
 
             <Button
-                style="@style/RbButton.Plastic"
                 android:id="@+id/btnAlarmClose"
+                style="@style/RbButton.Plastic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/close_keep" />
+                android:text="Close" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/S5"
+
+            >
+
+            <TextView
+                android:id="@+id/tvPanelremotlyDisarmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:textSize="@dimen/SP12"
+                android:gravity="center"
+                android:textColor="@color/redColor"
+                android:text="Turaco security system remotely disarmed!" />
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

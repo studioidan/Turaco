@@ -1,6 +1,9 @@
 package com.studioidan.turaco.entities;
 
 import com.google.gson.annotations.SerializedName;
+import com.studioidan.turaco.data.UserManager;
+import com.studioidan.turaco.entitiesNew.Site;
+import com.studioidan.turaco.singeltones.DataStore;
 
 import java.io.Serializable;
 
@@ -20,8 +23,36 @@ public class Panel implements Serializable {
     }
 
     public void setPanelStatus(PanelStatus panelStatus) {
-
         this.panelStatus = panelStatus;
+        try {
+            if (panelStatus.panelID == null)
+                panelStatus.panelID = findPanelID();
+            if (panelStatus.panelID != null)
+                panelStatus.siteID = findSiteID();
+        } catch (Exception ex) {
+        }
+
+    }
+
+
+    private String findPanelID() {
+        for (Site s : UserManager.getInstance().getClientUser().client.getSites()) {
+            for (Panel p : s.getPanels()) {
+                if (p.panelStatus.id.equals(this.getPanelStatus().id))
+                    return p.getPanelId();
+            }
+        }
+        return null;
+    }
+
+    private String findSiteID() {
+        for (Site s : UserManager.getInstance().getClientUser().client.getSites()) {
+            for (Panel p : s.getPanels()) {
+                if (p.getPanelId().equals(this.getPanelId()))
+                    return s.getSiteId();
+            }
+        }
+        return null;
     }
 
     public Panel() {
@@ -32,6 +63,11 @@ public class Panel implements Serializable {
 
 
     public String getPanelId() {
-        return "" + PanelId;
+        if (DataStore.getInstance().getIsDataSourceServer())
+            return "" + PanelId;
+        else {
+            String panel = DataStore.getInstance().getPanel();
+            return panel;
+        }
     }
 }

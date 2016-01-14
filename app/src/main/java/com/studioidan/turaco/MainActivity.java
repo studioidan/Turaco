@@ -3,7 +3,6 @@ package com.studioidan.turaco;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -11,12 +10,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.studioidan.turaco.base.BaseActivity;
 import com.studioidan.turaco.base.BaseFragment;
 import com.studioidan.turaco.customView.HeaderBar;
 import com.studioidan.turaco.fragments.SignInFragment;
+import com.studioidan.turaco.fragments.setup.MultiPanelFragment;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
     public final String TAG = getClass().getName();
 
     public HeaderBar getmBar() {
@@ -56,8 +57,6 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         }
-
-
     }
 
     public void addContentFragment(BaseFragment ComingFragment, boolean addtobackstack) {
@@ -87,7 +86,6 @@ public class MainActivity extends FragmentActivity {
 
         mTransaction.commitAllowingStateLoss();
     }
-
 
     public Fragment getFragmentAt(int index) {
         if (getFragmentCount() <= 0)
@@ -127,7 +125,8 @@ public class MainActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
     }
 
-
-
-
+    public void gotoMultiPanelView() {
+        MultiPanelFragment multiPanelFragment = new MultiPanelFragment();
+        addContentFragment(multiPanelFragment, true);
+    }
 }
